@@ -1,0 +1,3820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Fitness Transformation Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #e9ecef;
+            padding: 0;
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            min-width: 150px;
+        }
+        
+        .nav-tab:hover {
+            background: #dee2e6;
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .day-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .day-btn {
+            padding: 12px 24px;
+            background: #e9ecef;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .day-btn:hover {
+            background: #dee2e6;
+        }
+        
+        .day-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .workout-session {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .session-time {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .alarm-btn {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .alarm-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .alarm-btn.active {
+            background: #dc3545;
+        }
+        
+        .workout-details h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .exercise-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .exercise-list li {
+            padding: 10px;
+            background: white;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .exercise-list li:before {
+            content: "💪";
+            font-size: 1.2em;
+        }
+        
+        .timer-section {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .timer-display {
+            font-size: 3em;
+            font-weight: 700;
+            text-align: center;
+            color: #2c3e50;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .timer-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .start-btn {
+            background: #28a745;
+            color: white;
+        }
+        
+        .pause-btn {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .reset-btn {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .timer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .meal-plan {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .meal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .meal-time {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        .meal-calories {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .meal-content {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .meal-content h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .meal-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .meal-content li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .meal-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .macros {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .macro {
+            background: #e9ecef;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .macro strong {
+            color: #667eea;
+        }
+        
+        .notes {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+        
+        .notes h4 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+        }
+        
+        .progress-tracker {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-input {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .progress-input input {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        
+        .progress-input button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .progress-chart {
+            margin-top: 20px;
+            min-height: 200px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                border-radius: 0;
+                margin: 0;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.6em;
+                margin-bottom: 8px;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 20px 15px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-card h3 {
+                font-size: 1.8em;
+            }
+            
+            .stat-card p {
+                font-size: 0.85em;
+            }
+            
+            .nav-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .nav-tab {
+                font-size: 0.85em;
+                padding: 15px 12px;
+                min-width: 100px;
+                white-space: nowrap;
+            }
+            
+            .tab-content {
+                padding: 15px;
+            }
+            
+            .tab-content h2 {
+                font-size: 1.5em;
+            }
+            
+            .day-selector {
+                gap: 8px;
+            }
+            
+            .day-btn {
+                padding: 10px 16px;
+                font-size: 0.9em;
+                flex: 1;
+                min-width: 80px;
+            }
+            
+            .workout-session {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .session-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .session-time {
+                font-size: 1.1em;
+                width: 100%;
+            }
+            
+            .alarm-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 1em;
+            }
+            
+            .workout-details h4 {
+                font-size: 1.1em;
+            }
+            
+            .exercise-list li {
+                font-size: 0.95em;
+                padding: 8px;
+            }
+            
+            .timer-display {
+                font-size: 2.5em;
+                margin: 15px 0;
+            }
+            
+            .timer-controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .timer-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 1em;
+            }
+            
+            .meal-plan {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .meal-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .meal-time {
+                font-size: 1.1em;
+                width: 100%;
+            }
+            
+            .meal-calories {
+                align-self: flex-start;
+            }
+            
+            .meal-content {
+                padding: 12px;
+            }
+            
+            .meal-content h4 {
+                font-size: 1.05em;
+            }
+            
+            .meal-content li {
+                font-size: 0.9em;
+                padding: 6px 0;
+            }
+            
+            .macros {
+                gap: 8px;
+            }
+            
+            .macro {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+            
+            .notes {
+                padding: 12px;
+                margin: 15px 0;
+                font-size: 0.9em;
+            }
+            
+            .notes h4 {
+                font-size: 1.1em;
+                margin-bottom: 8px;
+            }
+            
+            .notes ul, .notes ol {
+                padding-left: 18px;
+            }
+            
+            .notes li {
+                margin-bottom: 6px;
+                line-height: 1.5;
+            }
+            
+            .progress-tracker {
+                padding: 15px;
+            }
+            
+            .progress-input {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .progress-input input {
+                width: 100%;
+                min-width: unset;
+                padding: 14px;
+                font-size: 1em;
+            }
+            
+            .progress-input button {
+                width: 100%;
+                padding: 14px;
+                font-size: 1em;
+            }
+            
+            #week-selector {
+                width: 100%;
+                min-width: unset;
+                padding: 12px;
+                font-size: 0.95em;
+            }
+            
+            #week-description {
+                font-size: 0.9em;
+                line-height: 1.5;
+            }
+            
+            /* Make tables scroll on mobile */
+            #progress-entries table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+            }
+            
+            #progress-entries th,
+            #progress-entries td {
+                padding: 8px;
+                font-size: 0.85em;
+            }
+            
+            /* Improve touch targets */
+            button, .day-btn, .nav-tab, .timer-btn, .alarm-btn {
+                min-height: 44px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            }
+            
+            /* Better spacing for mobile */
+            .day-content h3 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.4em;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .timer-display {
+                font-size: 2em;
+            }
+            
+            .nav-tab {
+                font-size: 0.8em;
+                padding: 12px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏋️ Functional Fitness Transformation Program</h1>
+            <p>Your 25-Week Journey to Lose 50 Pounds</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>62</h3>
+                <p>Years Young</p>
+            </div>
+            <div class="stat-card">
+                <h3>235</h3>
+                <p>Starting Weight (lbs)</p>
+            </div>
+            <div class="stat-card">
+                <h3>185</h3>
+                <p>Target Weight (lbs)</p>
+            </div>
+            <div class="stat-card">
+                <h3>25</h3>
+                <p>Weeks to Goal</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Training Days/Week</p>
+            </div>
+            <div class="stat-card">
+                <h3>1,900</h3>
+                <p>Daily Calories</p>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('overview')">📋 Overview</button>
+            <button class="nav-tab" onclick="showTab('workouts')">💪 Workouts</button>
+            <button class="nav-tab" onclick="showTab('nutrition')">🥗 Nutrition</button>
+            <button class="nav-tab" onclick="showTab('progress')">📊 Progress</button>
+            <button class="nav-tab" onclick="showTab('settings')">⚙️ Settings</button>
+        </div>
+        
+        <div id="overview" class="tab-content active">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Program Overview</h2>
+            
+            <div class="notes">
+                <h4>🎯 Your Goals</h4>
+                <p><strong>Weight Loss:</strong> 2 pounds per week = 50 pounds in 25 weeks</p>
+                <p><strong>Fitness Goal:</strong> Build from 5 push-ups to full pull-ups</p>
+                <p><strong>Training Style:</strong> High-intensity functional fitness</p>
+            </div>
+            
+            <div class="notes">
+                <h4>🏋️ Your Equipment</h4>
+                <ul>
+                    <li>✅ Adjustable Kettlebell (up to 50 lbs)</li>
+                    <li>✅ 5-Gallon Water Bucket (~40 lbs)</li>
+                    <li>✅ Pull-Up Bar (doorway mount)</li>
+                    <li>✅ Yoga Mat</li>
+                </ul>
+            </div>
+            
+            <div class="notes" style="background: #fff3cd; border-color: #ffc107;">
+                <h4>⏰ Daily Schedule (Monday-Friday)</h4>
+                <p><strong>Session 1:</strong> 9:00 AM - Strength & Skill Work (30 min)</p>
+                <p><strong>Session 2:</strong> 11:30 AM - Metabolic Conditioning (25 min)</p>
+                <p><strong>Session 3:</strong> 2:00 PM - Core & Mobility (20 min)</p>
+                <p><strong>Session 4:</strong> 4:30 PM - Accessory Work (20 min)</p>
+            </div>
+            
+            <div class="notes" style="background: #d4edda; border-color: #28a745;">
+                <h4>💡 Program Phases (Progressive Overload)</h4>
+                <p><strong>Weeks 1-4:</strong> Foundation - Learn movements, build work capacity</p>
+                <p><strong>Weeks 5-12:</strong> Build - Increase volume and intensity</p>
+                <p><strong>Weeks 13-20:</strong> Strengthen - Master pull-ups, heavy kettlebell work</p>
+                <p><strong>Weeks 21-25:</strong> Peak - Advanced WODs, performance testing</p>
+            </div>
+            
+            <div class="notes">
+                <h4>📱 How to Use This Program</h4>
+                <ol style="padding-left: 20px;">
+                    <li>Set alarms for each workout session</li>
+                    <li>Follow the daily workout plan under "Workouts" tab</li>
+                    <li>Use built-in timers for AMRAP and EMOM workouts</li>
+                    <li>Log your meals from the "Nutrition" tab</li>
+                    <li>Track progress weekly in the "Progress" tab</li>
+                    <li>Weekends are for active recovery (walking, stretching)</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div id="workouts" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Weekly Workout Plan</h2>
+            
+            <div class="notes" style="background: #d4edda; border-color: #28a745; margin-bottom: 20px;">
+                <h4>📊 Weekly Progress</h4>
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <div style="background: #e9ecef; height: 30px; border-radius: 15px; overflow: hidden;">
+                        <div id="weekly-progress-bar" style="background: linear-gradient(90deg, #28a745, #20c997); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <p id="weekly-progress-text" style="text-align: center; margin-top: 10px; font-weight: 600; color: #28a745;">0/20 sessions completed (0%)</p>
+                </div>
+            </div>
+            
+            <div class="notes" style="background: #fff3cd; border-color: #ffc107; margin-bottom: 20px;">
+                <h4>📅 Select Your Current Week</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                    <select id="week-selector" onchange="updateWorkoutWeek()" style="padding: 10px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; flex: 1; min-width: 200px;">
+                        <option value="1-4">Weeks 1-4: Foundation</option>
+                        <option value="5-8">Weeks 5-8: Build Volume</option>
+                        <option value="9-12">Weeks 9-12: Strength Focus</option>
+                        <option value="13-16">Weeks 13-16: Pull-Up Mastery</option>
+                        <option value="17-20">Weeks 17-20: Advanced Training</option>
+                        <option value="21-25">Weeks 21-25: Peak Performance</option>
+                    </select>
+                </div>
+                <p id="week-description" style="margin-top: 10px; font-weight: bold; color: #2c3e50;">Foundation Phase: Focus on learning proper form, building work capacity, and establishing consistent habits.</p>
+            </div>
+            
+            <div class="day-selector">
+                <button class="day-btn active" onclick="showDay('monday')">Monday</button>
+                <button class="day-btn" onclick="showDay('tuesday')">Tuesday</button>
+                <button class="day-btn" onclick="showDay('wednesday')">Wednesday</button>
+                <button class="day-btn" onclick="showDay('thursday')">Thursday</button>
+                <button class="day-btn" onclick="showDay('friday')">Friday</button>
+            </div>
+            
+            <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                <button onclick="showVideoLibrary()" style="flex: 1; min-width: 200px; padding: 12px 24px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                    🎥 Video Form Library
+                </button>
+                <button onclick="showSubstitutionGuide()" style="flex: 1; min-width: 200px; padding: 12px 24px; background: #17a2b8; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                    🔄 Exercise Substitutions
+                </button>
+            </div>
+            
+            <!-- MONDAY -->
+            <div id="monday" class="day-content">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Monday - Lower Body Focus</h3>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 9:00 AM - Strength & Skill</span>
+                        <button class="alarm-btn" onclick="setAlarm('09:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Warm-Up (8 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Arm circles & leg swings - 2 min</li>
+                            <li>10 Air squats</li>
+                            <li>10 Kettlebell deadlifts (light weight)</li>
+                            <li>30 sec plank hold</li>
+                            <li>Repeat warm-up 2x</li>
+                        </ul>
+                        
+                        <h4>Strength Work (20 min)</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Goblet Squats:</strong> 5 sets of 8 reps (kettlebell at chest)</li>
+                            <li>Rest 90 seconds between sets</li>
+                            <li><strong>Kettlebell Deadlifts:</strong> 4 sets of 10 reps</li>
+                            <li>Rest 90 seconds between sets</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>💡 Focus: Perfect form over heavy weight. Keep core tight.</em></p>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 11:30 AM - Metcon</span>
+                        <button class="alarm-btn" onclick="setAlarm('11:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>WOD: "Leg Burner" - AMRAP 12 Minutes</h4>
+                        <ul class="exercise-list">
+                            <li>15 Air Squats</li>
+                            <li>10 Kettlebell Swings (Russian style)</li>
+                            <li>10 Walking Lunges (5 each leg)</li>
+                            <li>20 Second Plank Hold</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>Complete as many rounds as possible in 12 minutes</em></p>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-1130">12:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startTimer('1130', 720)">Start</button>
+                                <button class="timer-btn pause-btn" onclick="pauseTimer('1130')">Pause</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('1130', 720)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 2:00 PM - Core & Mobility</span>
+                        <button class="alarm-btn" onclick="setAlarm('14:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Core Circuit (3 rounds)</h4>
+                        <ul class="exercise-list">
+                            <li>30 sec Plank</li>
+                            <li>15 Dead Bugs (alternating)</li>
+                            <li>20 Russian Twists (with or without KB)</li>
+                            <li>10 Bird Dogs (5 each side)</li>
+                            <li>Rest 60 seconds between rounds</li>
+                        </ul>
+                        
+                        <h4>Mobility (5 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Hip flexor stretch - 60 sec each side</li>
+                            <li>Hamstring stretch - 60 sec each side</li>
+                            <li>Child's pose - 90 seconds</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 4:30 PM - Accessory Work</span>
+                        <button class="alarm-btn" onclick="setAlarm('16:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Pull-Up Progression & Grip Strength</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Dead Hangs:</strong> 5 sets of max hold (goal 20+ sec)</li>
+                            <li>Rest 90 seconds between holds</li>
+                            <li><strong>Scapular Pulls:</strong> 4 sets of 5 reps</li>
+                            <li><strong>Negative Pull-Ups:</strong> 4 sets of 3 reps (5 sec descents)</li>
+                            <li><strong>Kettlebell Carries:</strong> 3 sets of 60 seconds walk</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>💡 This is your path to pull-ups! Be patient and consistent.</em></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TUESDAY -->
+            <div id="tuesday" class="day-content" style="display: none;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Tuesday - Upper Body Push</h3>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 9:00 AM - Strength & Skill</span>
+                        <button class="alarm-btn" onclick="setAlarm('09:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Warm-Up (8 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Arm circles - 1 min each direction</li>
+                            <li>10 Inchworms</li>
+                            <li>10 Push-ups (from knees if needed)</li>
+                            <li>10 Dumbbell/KB shoulder press (light)</li>
+                            <li>Repeat 2x</li>
+                        </ul>
+                        
+                        <h4>Strength Work (20 min)</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Push-Up Progression:</strong> 8 sets of 3-5 reps</li>
+                            <li>Use elevated push-ups if needed (hands on bucket)</li>
+                            <li>Rest 60 seconds between sets</li>
+                            <li><strong>Kettlebell Floor Press:</strong> 4 sets of 10 reps</li>
+                            <li>Rest 90 seconds between sets</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 11:30 AM - Metcon</span>
+                        <button class="alarm-btn" onclick="setAlarm('11:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>WOD: "Upper Body Blitz" - 4 Rounds For Time</h4>
+                        <ul class="exercise-list">
+                            <li>15 Kettlebell Swings</li>
+                            <li>10 Push-Ups (scale as needed)</li>
+                            <li>15 Kettlebell Overhead Press (alternating arms)</li>
+                            <li>20 Mountain Climbers</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>Target time: 12-16 minutes. Rest as needed between rounds.</em></p>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-tue1130">0:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startCountUp('tue1130')">Start</button>
+                                <button class="timer-btn pause-btn" onclick="pauseTimer('tue1130')">Pause</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('tue1130', 0)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 2:00 PM - Core & Mobility</span>
+                        <button class="alarm-btn" onclick="setAlarm('14:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Anti-Rotation Core (3 rounds)</h4>
+                        <ul class="exercise-list">
+                            <li>30 sec Side Plank (each side)</li>
+                            <li>15 Single-Arm Kettlebell Rows (each arm)</li>
+                            <li>20 Bicycle Crunches</li>
+                            <li>10 Kettlebell Windmills (5 each side)</li>
+                            <li>Rest 60 seconds between rounds</li>
+                        </ul>
+                        
+                        <h4>Upper Body Mobility (5 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Doorway chest stretch - 60 sec each side</li>
+                            <li>Thread the needle - 45 sec each side</li>
+                            <li>Shoulder circles with band or light KB</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 4:30 PM - Accessory Work</span>
+                        <button class="alarm-btn" onclick="setAlarm('16:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Pull-Up Progression & Shoulder Health</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Active Dead Hangs:</strong> 5 sets of 15-20 seconds</li>
+                            <li><strong>Scapular Retractions:</strong> 4 sets of 10 reps</li>
+                            <li><strong>Inverted Rows:</strong> 4 sets of 6-8 reps (use pull-up bar low)</li>
+                            <li><strong>Face Pulls:</strong> 3 sets of 15 reps (band or light KB)</li>
+                            <li><strong>Delt Raises:</strong> 3 sets of 12 reps (lateral & front)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- WEDNESDAY -->
+            <div id="wednesday" class="day-content" style="display: none;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Wednesday - Full Body Conditioning</h3>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 9:00 AM - Dynamic Warm-Up</span>
+                        <button class="alarm-btn" onclick="setAlarm('09:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Movement Prep (10 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Jumping jacks - 30 reps</li>
+                            <li>High knees - 30 seconds</li>
+                            <li>Butt kicks - 30 seconds</li>
+                            <li>Arm circles - 30 seconds each direction</li>
+                            <li>World's greatest stretch - 5 each side</li>
+                            <li>10 Air squats + 5 push-ups</li>
+                            <li>Repeat circuit 2x</li>
+                        </ul>
+                        
+                        <h4>Skill Practice (15 min)</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Kettlebell Snatch Practice:</strong> 10 min EMOM</li>
+                            <li>5 reps each arm (light weight, focus on form)</li>
+                            <li><strong>Box Step-Ups:</strong> 3 sets of 10 each leg (use bucket)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 11:30 AM - Hero WOD</span>
+                        <button class="alarm-btn" onclick="setAlarm('11:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>WOD: "Midweek Madness" - 20 Min AMRAP</h4>
+                        <ul class="exercise-list">
+                            <li>10 Kettlebell Swings</li>
+                            <li>10 Air Squats</li>
+                            <li>10 Push-Ups (scaled)</li>
+                            <li>10 Walking Lunges (5 each leg)</li>
+                            <li>10 Sit-Ups</li>
+                            <li>100m Walk/Jog (or 1 min march in place)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>Goal: Steady pace, don't burn out. This is about work capacity!</em></p>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-wed1130">20:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startTimer('wed1130', 1200)">Start</button>
+                                <button class="timer-btn pause-btn" onclick="pauseTimer('wed1130')">Pause</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('wed1130', 1200)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 2:00 PM - Active Recovery</span>
+                        <button class="alarm-btn" onclick="setAlarm('14:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Light Movement & Stretching (20 min)</h4>
+                        <ul class="exercise-list">
+                            <li>10 min easy walk or bike</li>
+                            <li>5 min full body foam rolling (or self-massage)</li>
+                            <li>5 min yoga flow (downward dog, cobra, child's pose)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 4:30 PM - Cardio Intervals</span>
+                        <button class="alarm-btn" onclick="setAlarm('16:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Fat Burning Intervals - 8 Rounds</h4>
+                        <ul class="exercise-list">
+                            <li>30 seconds: Kettlebell Swings (fast pace)</li>
+                            <li>30 seconds: Rest/Walk</li>
+                            <li>Repeat for 8 rounds (8 minutes total)</li>
+                        </ul>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-wed430">0:30</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startIntervalTimer('wed430')">Start Intervals</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('wed430', 30)">Reset</button>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px;"><strong>Round: <span id="round-wed430">1</span>/8</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- THURSDAY -->
+            <div id="thursday" class="day-content" style="display: none;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Thursday - Lower Body Power</h3>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 9:00 AM - Strength & Skill</span>
+                        <button class="alarm-btn" onclick="setAlarm('09:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Warm-Up (8 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Leg swings - 15 each direction</li>
+                            <li>Hip circles - 10 each direction</li>
+                            <li>10 Goblet squats (light KB)</li>
+                            <li>10 Good mornings</li>
+                            <li>30 sec wall sit</li>
+                            <li>Repeat 2x</li>
+                        </ul>
+                        
+                        <h4>Strength Work (20 min)</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Kettlebell Front Squats:</strong> 5 sets of 6 reps</li>
+                            <li>Rest 2 minutes between sets</li>
+                            <li><strong>Single-Leg Romanian Deadlifts:</strong> 4 sets of 8 each leg</li>
+                            <li>Rest 90 seconds between sets</li>
+                            <li><strong>Box Step-Ups:</strong> 3 sets of 12 each leg (weighted)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 11:30 AM - Metcon</span>
+                        <button class="alarm-btn" onclick="setAlarm('11:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>WOD: "Leg Day Special" - 5 Rounds For Time</h4>
+                        <ul class="exercise-list">
+                            <li>20 Air Squats</li>
+                            <li>15 Kettlebell Swings</li>
+                            <li>12 Walking Lunges (6 each leg)</li>
+                            <li>10 Burpees (step back version)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>Target: 15-20 minutes. Pace yourself!</em></p>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-thu1130">0:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startCountUp('thu1130')">Start</button>
+                                <button class="timer-btn pause-btn" onclick="pauseTimer('thu1130')">Pause</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('thu1130', 0)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 2:00 PM - Core & Stability</span>
+                        <button class="alarm-btn" onclick="setAlarm('14:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Core Strength Circuit (4 rounds)</h4>
+                        <ul class="exercise-list">
+                            <li>45 sec Plank</li>
+                            <li>20 Mountain Climbers</li>
+                            <li>15 V-Ups (or tuck-ups)</li>
+                            <li>30 sec Hollow Hold</li>
+                            <li>Rest 60 seconds between rounds</li>
+                        </ul>
+                        
+                        <h4>Lower Body Stretch (5 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Pigeon pose - 90 sec each side</li>
+                            <li>Quad stretch - 60 sec each side</li>
+                            <li>Calf stretch - 45 sec each side</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 4:30 PM - Pull-Up Training</span>
+                        <button class="alarm-btn" onclick="setAlarm('16:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Pull-Up Progression Session</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Dead Hangs:</strong> 5 sets of 20-30 seconds</li>
+                            <li><strong>Scapular Pull-Ups:</strong> 5 sets of 6 reps</li>
+                            <li><strong>Negative Pull-Ups:</strong> 5 sets of 2-3 reps (8 sec descents)</li>
+                            <li><strong>Band-Assisted Pull-Ups:</strong> 3 sets of 5 reps (if you have bands)</li>
+                            <li><strong>Lat Engagement Holds:</strong> 4 sets of 15 seconds</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>💪 You're getting stronger every week! Trust the process.</em></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FRIDAY -->
+            <div id="friday" class="day-content" style="display: none;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Friday - Full Body & Testing</h3>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 9:00 AM - Benchmark Testing</span>
+                        <button class="alarm-btn" onclick="setAlarm('09:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Warm-Up (10 min)</h4>
+                        <ul class="exercise-list">
+                            <li>Full body dynamic warm-up</li>
+                            <li>Practice all movements you'll test</li>
+                        </ul>
+                        
+                        <h4>Weekly Tests (Track Your Progress!)</h4>
+                        <ul class="exercise-list">
+                            <li><strong>Max Push-Ups:</strong> As many as possible (proper form)</li>
+                            <li>Rest 5 minutes</li>
+                            <li><strong>Max Air Squats in 1 min:</strong> Count them all</li>
+                            <li>Rest 5 minutes</li>
+                            <li><strong>Plank Hold:</strong> Max time</li>
+                            <li>Rest 5 minutes</li>
+                            <li><strong>Dead Hang:</strong> Max time</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>📝 Write these numbers down! Check your progress tab.</em></p>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 11:30 AM - Friday Finisher</span>
+                        <button class="alarm-btn" onclick="setAlarm('11:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>WOD: "End of Week Crusher" - 15 Min AMRAP</h4>
+                        <ul class="exercise-list">
+                            <li>15 Kettlebell Swings</li>
+                            <li>12 Push-Ups</li>
+                            <li>15 Air Squats</li>
+                            <li>10 Burpees</li>
+                            <li>20 Mountain Climbers</li>
+                        </ul>
+                        
+                        <div class="timer-section">
+                            <div class="timer-display" id="timer-fri1130">15:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn start-btn" onclick="startTimer('fri1130', 900)">Start</button>
+                                <button class="timer-btn pause-btn" onclick="pauseTimer('fri1130')">Pause</button>
+                                <button class="timer-btn reset-btn" onclick="resetTimer('fri1130', 900)">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 2:00 PM - Recovery & Mobility</span>
+                        <button class="alarm-btn" onclick="setAlarm('14:00', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Full Body Recovery (20 min)</h4>
+                        <ul class="exercise-list">
+                            <li>10 min yoga flow (sun salutations)</li>
+                            <li>5 min foam rolling all major muscle groups</li>
+                            <li>5 min deep breathing & meditation</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><em>🧘 Recovery is when you grow stronger. Don't skip this!</em></p>
+                    </div>
+                </div>
+                
+                <div class="workout-session">
+                    <div class="session-header">
+                        <span class="session-time">⏰ 4:30 PM - Fun Challenge</span>
+                        <button class="alarm-btn" onclick="setAlarm('16:30', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">
+                        <h4>Choose Your Own Adventure!</h4>
+                        <p>Pick ONE of these challenges:</p>
+                        <ul class="exercise-list">
+                            <li><strong>Option A:</strong> 100 Kettlebell Swings for time</li>
+                            <li><strong>Option B:</strong> 10 min EMOM - 10 Air Squats + 5 Push-Ups</li>
+                            <li><strong>Option C:</strong> As many pull-up attempts as possible in 10 min</li>
+                            <li><strong>Option D:</strong> 2 mile walk (active recovery)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notes" style="margin-top: 30px;">
+                <h4>📋 Workout Notes & Progression</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>Week 1-2:</strong> Focus on learning proper form, lighter weights</li>
+                    <li><strong>Week 3-4:</strong> Add weight to kettlebell movements, increase push-up reps</li>
+                    <li><strong>Week 5-8:</strong> Reduce rest times, increase workout density</li>
+                    <li><strong>Week 9-12:</strong> Start getting strict pull-up reps, heavier KB work</li>
+                    <li><strong>Week 13+:</strong> Advanced variations, more complex WODs</li>
+                    <li><strong>Scaling:</strong> Always scale movements to maintain good form</li>
+                    <li><strong>Rest Days:</strong> Saturday & Sunday - walk 30-60 min, light stretching</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="nutrition" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Daily Nutrition Plan</h2>
+            
+            <div style="margin-bottom: 20px; text-align: center;">
+                <button onclick="generateShoppingList()" style="padding: 14px 30px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1.1em;">
+                    🛒 Generate Weekly Shopping List
+                </button>
+            </div>
+            
+            <div class="notes" style="background: #d4edda; border-color: #28a745;">
+                <h4>🎯 Daily Nutrition Targets</h4>
+                <div class="macros">
+                    <div class="macro"><strong>Calories:</strong> 1,900</div>
+                    <div class="macro"><strong>Protein:</strong> 170g (36%)</div>
+                    <div class="macro"><strong>Carbs:</strong> 190g (40%)</div>
+                    <div class="macro"><strong>Fat:</strong> 50g (24%)</div>
+                </div>
+                <p style="margin-top: 15px;"><strong>Why these numbers?</strong> High protein preserves muscle during weight loss, moderate carbs fuel your workouts, healthy fats support hormone function. This creates a 500-700 calorie deficit for 2 lbs/week loss.</p>
+            </div>
+            
+            <!-- Meal 1 -->
+            <div class="meal-plan">
+                <div class="meal-header">
+                    <span class="meal-time">⏰ 7:30 AM - Breakfast</span>
+                    <span class="meal-calories">450 cal</span>
+                    <button class="alarm-btn" onclick="setAlarm('07:30', this)">Set Alarm</button>
+                </div>
+                <div class="meal-content">
+                    <h4>High-Protein Breakfast</h4>
+                    <ul>
+                        <li>3 whole eggs, scrambled or fried in 1 tsp olive oil</li>
+                        <li>1 cup cooked oatmeal (made with water)</li>
+                        <li>1 medium banana</li>
+                        <li>1 cup black coffee or green tea</li>
+                    </ul>
+                    <div class="macros">
+                        <div class="macro"><strong>Protein:</strong> 28g</div>
+                        <div class="macro"><strong>Carbs:</strong> 55g</div>
+                        <div class="macro"><strong>Fat:</strong> 18g</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Meal 2 -->
+            <div class="meal-plan">
+                <div class="meal-header">
+                    <span class="meal-time">⏰ 10:30 AM - Pre-Workout Snack</span>
+                    <span class="meal-calories">200 cal</span>
+                    <button class="alarm-btn" onclick="setAlarm('10:30', this)">Set Alarm</button>
+                </div>
+                <div class="meal-content">
+                    <h4>Energy Boost</h4>
+                    <ul>
+                        <li>1 medium apple</li>
+                        <li>2 tablespoons natural peanut butter</li>
+                        <li>Water (16-20 oz)</li>
+                    </ul>
+                    <div class="macros">
+                        <div class="macro"><strong>Protein:</strong> 8g</div>
+                        <div class="macro"><strong>Carbs:</strong> 28g</div>
+                        <div class="macro"><strong>Fat:</strong> 16g</div>
+                    </div>
+                    <p style="margin-top: 10px; font-style: italic;">💡 Eat 30 min before your 11:30 workout</p>
+                </div>
+            </div>
+            
+            <!-- Meal 3 -->
+            <div class="meal-plan">
+                <div class="meal-header">
+                    <span class="meal-time">⏰ 12:30 PM - Post-Workout Lunch</span>
+                    <span class="meal-calories">550 cal</span>
+                    <button class="alarm-btn" onclick="setAlarm('12:30', this)">Set Alarm</button>
+                </div>
+                <div class="meal-content">
+                    <h4>Recovery Meal</h4>
+                    <ul>
+                        <li>6 oz grilled chicken breast</li>
+                        <li>1.5 cups cooked brown rice</li>
+                        <li>2 cups mixed vegetables (broccoli, peppers, carrots)</li>
+                        <li>1 tablespoon olive oil for cooking</li>
+                    </ul>
+                    <div class="macros">
+                        <div class="macro"><strong>Protein:</strong> 52g</div>
+                        <div class="macro"><strong>Carbs:</strong> 60g</div>
+                        <div class="macro"><strong>Fat:</strong> 10g</div>
+                    </div>
+                    <p style="margin-top: 10px; font-style: italic;">💪 High protein + carbs = muscle recovery & growth</p>
+                </div>
+            </div>
+            
+            <!-- Meal 4 -->
+            <div class="meal-plan">
+                <div class="meal-header">
+                    <span class="meal-time">⏰ 3:00 PM - Afternoon Snack</span>
+                    <span class="meal-calories">250 cal</span>
+                    <button class="alarm-btn" onclick="setAlarm('15:00', this)">Set Alarm</button>
+                </div>
+                <div class="meal-content">
+                    <h4>Protein Snack</h4>
+                    <ul>
+                        <li>1 cup plain Greek yogurt (non-fat)</li>
+                        <li>1/2 cup mixed berries</li>
+                        <li>1 tablespoon honey</li>
+                        <li>10 almonds</li>
+                    </ul>
+                    <div class="macros">
+                        <div class="macro"><strong>Protein:</strong> 25g</div>
+                        <div class="macro"><strong>Carbs:</strong> 30g</div>
+                        <div class="macro"><strong>Fat:</strong> 5g</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Meal 5 -->
+            <div class="meal-plan">
+                <div class="meal-header">
+                    <span class="meal-time">⏰ 6:00 PM - Dinner</span>
+                    <span class="meal-calories">450 cal</span>
+                    <button class="alarm-btn" onclick="setAlarm('18:00', this)">Set Alarm</button>
+                </div>
+                <div class="meal-content">
+                    <h4>Lean & Clean Dinner</h4>
+                    <ul>
+                        <li>6 oz salmon or lean ground turkey</li>
+                        <li>1 medium sweet potato</li>
+                        <li>2 cups green salad (spinach, cucumber, tomato)</li>
+                        <li>2 tablespoons balsamic vinaigrette</li>
+                    </ul>
+                    <div class="macros">
+                        <div class="macro"><strong>Protein:</strong> 48g</div>
+                        <div class="macro"><strong>Carbs:</strong> 35g</div>
+                        <div class="macro"><strong>Fat:</strong> 12g</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notes" style="margin-top: 30px;">
+                <h4>🥤 Hydration & Supplements</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>Water:</strong> Drink 100+ oz daily (1 gallon). Carry water bottle everywhere.</li>
+                    <li><strong>Pre-Workout:</strong> Black coffee or 200mg caffeine (optional)</li>
+                    <li><strong>Intra-Workout:</strong> Water + electrolytes if training >60 min</li>
+                    <li><strong>Post-Workout:</strong> 20-30g protein within 30 min (meal or shake)</li>
+                    <li><strong>Daily Supplements:</strong> Multivitamin, Omega-3 (fish oil), Vitamin D</li>
+                    <li><strong>Optional:</strong> Creatine 5g daily (helps strength & recovery)</li>
+                </ul>
+            </div>
+            
+            <div class="notes" style="background: #fff3cd; border-color: #ffc107;">
+                <h4>🔄 Meal Prep Tips</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>Sunday Prep:</strong> Cook 3-4 lbs chicken breast, 6 cups rice, chop vegetables</li>
+                    <li><strong>Protein Sources:</strong> Rotate chicken, turkey, salmon, eggs, Greek yogurt, cottage cheese</li>
+                    <li><strong>Carb Sources:</strong> Brown rice, sweet potato, oatmeal, quinoa, whole wheat bread</li>
+                    <li><strong>Vegetables:</strong> Any and all! Aim for 5+ servings daily. Low calorie, high nutrition.</li>
+                    <li><strong>Snacks:</strong> Hard-boiled eggs, protein bars, nuts (measured!), fruit</li>
+                    <li><strong>Weekend Flexibility:</strong> One "free meal" per week is fine - stay within calories</li>
+                </ul>
+            </div>
+            
+            <div class="notes" style="background: #f8d7da; border-color: #dc3545;">
+                <h4>⚠️ What to Avoid</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>Sugary drinks (soda, juice, sweet tea) - empty calories</li>
+                    <li>Processed snacks (chips, cookies, candy)</li>
+                    <li>Fried foods and fast food</li>
+                    <li>Alcohol (or limit to 1-2 drinks per week max)</li>
+                    <li>Large portions - measure your food for first 2 weeks</li>
+                    <li>Eating after 8 PM (optional but helps many people)</li>
+                </ul>
+            </div>
+            
+            <div class="notes" style="background: #d1ecf1; border-color: #17a2b8;">
+                <h4>📊 Tracking Your Nutrition</h4>
+                <p>For the first 4 weeks, I recommend tracking everything you eat in an app like MyFitnessPal or Cronometer. This teaches you portion sizes and helps ensure you're hitting your targets. After 4 weeks, you can be more intuitive if you're seeing consistent results.</p>
+                <p style="margin-top: 10px;"><strong>Weekly Check-In:</strong> Weigh yourself Friday morning (before eating). Average your weight over 4 weeks. If you're not losing 1.5-2 lbs/week, reduce calories by 100-200.</p>
+            </div>
+        </div>
+        
+        <div id="progress" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">Track Your Progress</h2>
+            
+            <div class="progress-tracker">
+                <h3 style="margin-bottom: 15px;">📈 Weekly Check-In</h3>
+                <p style="margin-bottom: 15px;">Record your stats every Friday morning before eating or working out.</p>
+                
+                <div class="progress-input">
+                    <input type="date" id="progress-date" placeholder="Date">
+                    <input type="number" id="progress-weight" placeholder="Weight (lbs)" step="0.1">
+                    <input type="number" id="progress-pushups" placeholder="Max Push-Ups">
+                    <input type="number" id="progress-squats" placeholder="Squats (1 min)">
+                    <input type="number" id="progress-plank" placeholder="Plank (seconds)">
+                    <input type="number" id="progress-hang" placeholder="Dead Hang (seconds)">
+                    <button onclick="addProgress()">Add Entry</button>
+                </div>
+                
+                <div id="progress-log" style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px;">Your Progress Log:</h4>
+                    <div id="progress-entries" style="background: #f8f9fa; padding: 15px; border-radius: 8px; min-height: 100px;">
+                        <p style="color: #666; text-align: center;">No entries yet. Add your first check-in above!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="notes" style="margin-top: 30px;">
+                <h4>🎯 Your Milestones</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li><strong>Week 4:</strong> Lost 8 lbs, doing 10+ push-ups, 45+ sec plank</li>
+                    <li><strong>Week 8:</strong> Lost 16 lbs, doing 15+ push-ups, 1+ min plank, 30+ sec dead hang</li>
+                    <li><strong>Week 12:</strong> Lost 24 lbs, doing 20+ push-ups, first strict pull-up attempt</li>
+                    <li><strong>Week 16:</strong> Lost 32 lbs, 3-5 strict pull-ups, 90+ sec plank</li>
+                    <li><strong>Week 20:</strong> Lost 40 lbs, 10+ strict pull-ups, crushing WODs</li>
+                    <li><strong>Week 25:</strong> GOAL! 185 lbs, strong pull-ups, complete transformation 🎉</li>
+                </ul>
+            </div>
+            
+            <div class="notes" style="background: #d1ecf1; border-color: #17a2b8;">
+                <h4>📸 Progress Photos</h4>
+                <p style="margin-bottom: 15px;">Upload photos every 4 weeks in the same lighting/location. Visual progress is often more motivating than the scale!</p>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                    <h4 style="margin-bottom: 15px;">Upload New Progress Photos</h4>
+                    
+                    <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">📅 Photo Date:</label>
+                            <input type="date" id="photo-date" style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">📷 Front View:</label>
+                            <input type="file" id="photo-front" accept="image/*" capture="environment" 
+                                   style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">📷 Side View:</label>
+                            <input type="file" id="photo-side" accept="image/*" capture="environment" 
+                                   style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">📷 Back View:</label>
+                            <input type="file" id="photo-back" accept="image/*" capture="environment" 
+                                   style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px;">📝 Notes (optional):</label>
+                            <textarea id="photo-notes" rows="3" placeholder="How you're feeling, clothing size changes, energy levels, etc." 
+                                      style="width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; font-family: inherit;"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button onclick="saveProgressPhotos()" 
+                            style="width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        💾 Save Progress Photos
+                    </button>
+                </div>
+                
+                <div id="photo-gallery" style="margin-top: 30px;">
+                    <h4 style="margin-bottom: 15px;">Your Progress Gallery</h4>
+                    <div id="photo-entries" style="background: white; padding: 15px; border-radius: 8px; min-height: 100px;">
+                        <p style="color: #666; text-align: center;">No photos yet. Upload your first progress photos above!</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 15px; background: #fff3cd; border-radius: 6px;">
+                    <p style="font-size: 0.9em; color: #856404;">
+                        <strong>💡 Photo Tips:</strong> Take photos in the same location with similar lighting each time. Wear fitted clothing or the same outfit. Morning photos (after bathroom, before eating) are most consistent. Photos are stored locally on your device only - complete privacy!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="notes" style="background: #d4edda; border-color: #28a745;">
+                <h4>💪 Non-Scale Victories to Celebrate</h4>
+                <ul style="padding-left: 20px; margin-top: 10px;">
+                    <li>✓ Clothes fitting better</li>
+                    <li>✓ More energy throughout the day</li>
+                    <li>✓ Sleeping better</li>
+                    <li>✓ Climbing stairs without getting winded</li>
+                    <li>✓ Completing workouts that seemed impossible at first</li>
+                    <li>✓ Stronger grip and better posture</li>
+                    <li>✓ Consistent daily habits established</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="settings" class="tab-content">
+            <h2 style="color: #667eea; margin-bottom: 20px;">⚙️ Program Settings</h2>
+            
+            <div class="notes" style="background: #d1ecf1; border-color: #17a2b8; margin-bottom: 30px;">
+                <h4>🕐 Customize Your Workout Times</h4>
+                <p>Adjust the start times for each workout session to fit your schedule. Changes are saved automatically and will apply to all workout days.</p>
+            </div>
+            
+            <div class="progress-tracker">
+                <h3 style="margin-bottom: 20px;">Workout Session Times</h3>
+                
+                <div style="display: grid; gap: 20px;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Session 1 - Strength & Skill</h4>
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <label style="font-weight: 600; min-width: 100px;">Start Time:</label>
+                            <input type="time" id="time-session1" value="09:00" 
+                                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                            <button onclick="saveSessionTime(1)" 
+                                    style="padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                                Save
+                            </button>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                            <strong>Default:</strong> 9:00 AM - Strength work and skill development
+                        </p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Session 2 - Metabolic Conditioning</h4>
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <label style="font-weight: 600; min-width: 100px;">Start Time:</label>
+                            <input type="time" id="time-session2" value="11:30" 
+                                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                            <button onclick="saveSessionTime(2)" 
+                                    style="padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                                Save
+                            </button>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                            <strong>Default:</strong> 11:30 AM - WODs and conditioning work
+                        </p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Session 3 - Core & Mobility</h4>
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <label style="font-weight: 600; min-width: 100px;">Start Time:</label>
+                            <input type="time" id="time-session3" value="14:00" 
+                                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                            <button onclick="saveSessionTime(3)" 
+                                    style="padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                                Save
+                            </button>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                            <strong>Default:</strong> 2:00 PM - Core strength and mobility work
+                        </p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">Session 4 - Accessory Work</h4>
+                        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <label style="font-weight: 600; min-width: 100px;">Start Time:</label>
+                            <input type="time" id="time-session4" value="16:30" 
+                                   style="padding: 12px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                            <button onclick="saveSessionTime(4)" 
+                                    style="padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                                Save
+                            </button>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                            <strong>Default:</strong> 4:30 PM - Pull-up training and accessory work
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px;">
+                    <h4 style="color: #856404; margin-bottom: 10px;">💡 Tips for Scheduling</h4>
+                    <ul style="padding-left: 20px; color: #856404;">
+                        <li>Space sessions at least 2 hours apart for recovery</li>
+                        <li>Schedule Session 1 after you've had breakfast and coffee</li>
+                        <li>Session 2 is your most intense - plan accordingly</li>
+                        <li>Session 3 is lighter - good for midday energy boost</li>
+                        <li>Session 4 can be moved earlier or later based on your energy</li>
+                        <li>Times will automatically update in all workout days</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button onclick="resetAllTimes()" 
+                            style="padding: 12px 30px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        Reset All Times to Defaults
+                    </button>
+                </div>
+            </div>
+            
+            <div class="notes" style="margin-top: 30px;">
+                <h4>📱 Meal Time Settings</h4>
+                <p style="margin-bottom: 15px;">Customize your meal times to match your workout schedule.</p>
+                
+                <div style="display: grid; gap: 15px; margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 600; min-width: 120px;">Breakfast:</label>
+                        <input type="time" id="time-meal1" value="07:30" 
+                               style="padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                        <button onclick="saveMealTime(1)" 
+                                style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            Save
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 600; min-width: 120px;">Pre-Workout Snack:</label>
+                        <input type="time" id="time-meal2" value="10:30" 
+                               style="padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                        <button onclick="saveMealTime(2)" 
+                                style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            Save
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 600; min-width: 120px;">Lunch:</label>
+                        <input type="time" id="time-meal3" value="12:30" 
+                               style="padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                        <button onclick="saveMealTime(3)" 
+                                style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            Save
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 600; min-width: 120px;">Afternoon Snack:</label>
+                        <input type="time" id="time-meal4" value="15:00" 
+                               style="padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                        <button onclick="saveMealTime(4)" 
+                                style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            Save
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <label style="font-weight: 600; min-width: 120px;">Dinner:</label>
+                        <input type="time" id="time-meal5" value="18:00" 
+                               style="padding: 10px; border: 2px solid #e9ecef; border-radius: 6px; font-size: 1em; flex: 1; min-width: 150px;">
+                        <button onclick="saveMealTime(5)" 
+                                style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Session time management
+        const defaultSessionTimes = {
+            session1: '09:00',
+            session2: '11:30',
+            session3: '14:00',
+            session4: '16:30'
+        };
+        
+        const defaultMealTimes = {
+            meal1: '07:30',
+            meal2: '10:30',
+            meal3: '12:30',
+            meal4: '15:00',
+            meal5: '18:00'
+        };
+        
+        // Workout completion tracking
+        function getWorkoutCompletions() {
+            const saved = localStorage.getItem('workoutCompletions');
+            return saved ? JSON.parse(saved) : {};
+        }
+        
+        function saveWorkoutCompletion(week, day, session, completed) {
+            const completions = getWorkoutCompletions();
+            const key = `${week}-${day}-${session}`;
+            completions[key] = completed;
+            localStorage.setItem('workoutCompletions', JSON.stringify(completions));
+            updateWeeklyProgress();
+        }
+        
+        function isWorkoutCompleted(week, day, session) {
+            const completions = getWorkoutCompletions();
+            const key = `${week}-${day}-${session}`;
+            return completions[key] || false;
+        }
+        
+        function updateWeeklyProgress() {
+            const week = document.getElementById('week-selector').value;
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+            let totalSessions = days.length * 4; // 5 days * 4 sessions
+            let completedSessions = 0;
+            
+            days.forEach(day => {
+                for (let i = 1; i <= 4; i++) {
+                    if (isWorkoutCompleted(week, day, i)) {
+                        completedSessions++;
+                    }
+                }
+            });
+            
+            const percentage = Math.round((completedSessions / totalSessions) * 100);
+            const progressBar = document.getElementById('weekly-progress-bar');
+            const progressText = document.getElementById('weekly-progress-text');
+            
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = `${completedSessions}/${totalSessions} sessions completed (${percentage}%)`;
+            }
+        }
+        
+        // Exercise video library with YouTube links
+        const exerciseVideos = {
+            "Pull-Ups": {
+                video: "eGo4IYlbE5g",
+                title: "How to Do Pull-Ups - Proper Form",
+                formTips: [
+                    "Start with a dead hang, arms fully extended",
+                    "Engage your lats by pulling shoulders down and back",
+                    "Pull your chest to the bar, not your chin",
+                    "Control the descent - don't drop down",
+                    "Keep your core tight throughout the movement",
+                    "Avoid kipping until you master strict pull-ups"
+                ],
+                commonMistakes: [
+                    "Not going through full range of motion",
+                    "Using momentum instead of muscle",
+                    "Shrugging shoulders at the top",
+                    "Craning neck to get chin over bar"
+                ]
+            },
+            "Push-Ups": {
+                video: "IODxDxX7oi4",
+                title: "Perfect Push-Up Form Tutorial",
+                formTips: [
+                    "Hands slightly wider than shoulder-width",
+                    "Body forms a straight line from head to heels",
+                    "Lower chest to ground, elbows at 45-degree angle",
+                    "Keep core engaged - don't let hips sag",
+                    "Push through your palms, not fingers",
+                    "Breathe in on the way down, out on the way up"
+                ],
+                commonMistakes: [
+                    "Letting hips drop or pike up",
+                    "Flaring elbows out to 90 degrees",
+                    "Not going low enough",
+                    "Head sagging or looking up"
+                ]
+            },
+            "Kettlebell Swings": {
+                video: "YSxHifyI6s8",
+                title: "Kettlebell Swing - Perfect Form",
+                formTips: [
+                    "Hinge at the hips, not squat",
+                    "Keep back flat and chest up",
+                    "Drive through your heels explosively",
+                    "Use hip thrust power, not arms",
+                    "Swing to shoulder height (Russian style)",
+                    "Keep the kettlebell close to your body"
+                ],
+                commonMistakes: [
+                    "Squatting instead of hinging",
+                    "Using arms to lift instead of hips",
+                    "Rounding the back",
+                    "Letting kettlebell pull you forward"
+                ]
+            },
+            "Air Squats": {
+                video: "C_VtOYc6j5c",
+                title: "Bodyweight Squat Tutorial",
+                formTips: [
+                    "Feet shoulder-width apart, toes slightly out",
+                    "Chest up, eyes forward",
+                    "Sit back like sitting in a chair",
+                    "Keep knees tracking over toes",
+                    "Go to parallel or below if mobile",
+                    "Drive through full foot, not just toes"
+                ],
+                commonMistakes: [
+                    "Knees caving inward",
+                    "Rising on toes",
+                    "Leaning too far forward",
+                    "Not going deep enough"
+                ]
+            },
+            "Burpees": {
+                video: "TU8QYVW0gDU",
+                title: "How to Do a Burpee",
+                formTips: [
+                    "Start standing, feet hip-width",
+                    "Drop to plank position (can step back for easier)",
+                    "Perform a push-up (optional for beginners)",
+                    "Jump or step feet back to hands",
+                    "Explode up into a jump with hands overhead",
+                    "Land softly and repeat"
+                ],
+                commonMistakes: [
+                    "Sagging hips in plank",
+                    "Not fully extending at the top",
+                    "Landing heavily on jump",
+                    "Going too fast and losing form"
+                ]
+            },
+            "Goblet Squats": {
+                video: "MeHQ4uWQRMQ",
+                title: "Goblet Squat Form Guide",
+                formTips: [
+                    "Hold kettlebell at chest, elbows down",
+                    "Feet slightly wider than shoulder-width",
+                    "Sit back and down between your legs",
+                    "Elbows track inside knees at bottom",
+                    "Keep chest proud and core tight",
+                    "Drive through heels to stand"
+                ],
+                commonMistakes: [
+                    "Holding weight too low",
+                    "Not going deep enough",
+                    "Knees caving in",
+                    "Rounding upper back"
+                ]
+            },
+            "Kettlebell Deadlifts": {
+                video: "GZbFeg82Org",
+                title: "Kettlebell Deadlift Tutorial",
+                formTips: [
+                    "Feet hip-width, kettlebell between feet",
+                    "Hinge at hips, slight knee bend",
+                    "Grab handle with both hands",
+                    "Flat back, chest up, shoulders packed",
+                    "Drive through heels, extend hips",
+                    "Stand tall at top, squeeze glutes"
+                ],
+                commonMistakes: [
+                    "Rounding the back",
+                    "Squatting instead of hinging",
+                    "Not fully extending hips at top",
+                    "Letting shoulders round forward"
+                ]
+            },
+            "Plank": {
+                video: "pSHjTRCQxIw",
+                title: "Perfect Plank Form",
+                formTips: [
+                    "Forearms on ground, elbows under shoulders",
+                    "Body in straight line - no sagging or piking",
+                    "Engage your core like bracing for a punch",
+                    "Squeeze glutes to keep hips level",
+                    "Look at the ground, neutral neck",
+                    "Breathe normally, don't hold breath"
+                ],
+                commonMistakes: [
+                    "Hips sagging toward ground",
+                    "Butt too high in the air",
+                    "Not engaging core",
+                    "Holding breath"
+                ]
+            },
+            "Walking Lunges": {
+                video: "L8fvypPrzzs",
+                title: "Walking Lunge Technique",
+                formTips: [
+                    "Step forward with one leg",
+                    "Lower hips until both knees at 90 degrees",
+                    "Front knee stays over ankle, not past toes",
+                    "Back knee lightly touches ground",
+                    "Push through front heel to stand and step",
+                    "Keep torso upright throughout"
+                ],
+                commonMistakes: [
+                    "Front knee going past toes",
+                    "Leaning too far forward",
+                    "Taking steps too short or too long",
+                    "Letting knee cave inward"
+                ]
+            },
+            "Mountain Climbers": {
+                video: "nmwgirgXLYM",
+                title: "Mountain Climbers Form",
+                formTips: [
+                    "Start in high plank position",
+                    "Drive one knee toward chest",
+                    "Quickly switch legs in running motion",
+                    "Keep hips level, don't pike up",
+                    "Core stays engaged throughout",
+                    "Hands stay planted, don't shift"
+                ],
+                commonMistakes: [
+                    "Hips rising up",
+                    "Not bringing knee far enough forward",
+                    "Shoulders moving forward",
+                    "Going too fast and losing form"
+                ]
+            }
+        };
+        
+        function showExerciseVideo(exerciseName) {
+            const exercise = exerciseVideos[exerciseName];
+            if (!exercise) {
+                alert('Video tutorial coming soon for this exercise!');
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                padding: 20px;
+                overflow-y: auto;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 12px; padding: 30px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <h2 style="color: #667eea; margin-bottom: 20px;">${exerciseName}</h2>
+                    
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 30px; border-radius: 8px; overflow: hidden;">
+                        <iframe 
+                            src="https://www.youtube.com/embed/${exercise.video}?rel=0" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; padding: 20px; background: #d4edda; border-left: 4px solid #28a745; border-radius: 8px;">
+                        <h3 style="color: #28a745; margin-bottom: 15px;">✅ Proper Form Tips:</h3>
+                        <ol style="padding-left: 20px; color: #155724;">
+                            ${exercise.formTips.map(tip => `<li style="margin-bottom: 8px;">${tip}</li>`).join('')}
+                        </ol>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; padding: 20px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 8px;">
+                        <h3 style="color: #856404; margin-bottom: 15px;">⚠️ Common Mistakes to Avoid:</h3>
+                        <ul style="padding-left: 20px; color: #856404;">
+                            ${exercise.commonMistakes.map(mistake => `<li style="margin-bottom: 8px;">${mistake}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <button onclick="this.closest('[style*=fixed]').remove()" 
+                            style="width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        // Exercise substitutions database
+        const exerciseSubstitutions = {
+            "Pull-Ups": {
+                beginner: ["Band-Assisted Pull-Ups", "Inverted Rows", "Lat Pulldowns", "Negative Pull-Ups"],
+                noEquipment: ["Inverted Rows (under table)", "Door Frame Rows", "Towel Rows"],
+                injury: ["Seated Rows", "Band Pull-Aparts", "Face Pulls"]
+            },
+            "Push-Ups": {
+                beginner: ["Incline Push-Ups", "Wall Push-Ups", "Knee Push-Ups"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Chest Press (if available)", "Band Chest Press", "Isometric Wall Push"]
+            },
+            "Kettlebell Swings": {
+                beginner: ["Lighter Weight KB Swings", "Goblet Squats", "Jump Squats"],
+                noEquipment: ["Jump Squats", "Broad Jumps", "Prisoner Squats"],
+                injury: ["Deadlifts", "Romanian Deadlifts", "Glute Bridges"]
+            },
+            "Air Squats": {
+                beginner: ["Box Squats", "Chair Squats", "Wall Sits"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Leg Press (if available)", "Step-Ups", "Isometric Wall Sit"]
+            },
+            "Burpees": {
+                beginner: ["Step-Back Burpees", "Squat Thrusts", "Mountain Climbers"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Squat to Stand", "High Knees", "Jump Rope (if no impact issues)"]
+            },
+            "Goblet Squats": {
+                beginner: ["Lighter Weight", "Bodyweight Squats", "Box Squats"],
+                noEquipment: ["Bodyweight Squats", "Jump Squats", "Pistol Squat Progressions"],
+                injury: ["Leg Press", "Step-Ups", "Wall Sits"]
+            },
+            "Walking Lunges": {
+                beginner: ["Stationary Lunges", "Split Squats", "Step-Ups"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Step-Ups", "Bulgarian Split Squats (lighter)", "Leg Press"]
+            },
+            "Kettlebell Deadlifts": {
+                beginner: ["Lighter Weight", "Romanian Deadlifts", "Glute Bridges"],
+                noEquipment: ["Single-Leg Deadlifts", "Good Mornings", "Superman Holds"],
+                injury: ["Glute Bridges", "Hip Thrusts", "Leg Curls"]
+            },
+            "Mountain Climbers": {
+                beginner: ["Slow Mountain Climbers", "Plank Hold", "Dead Bugs"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Bird Dogs", "Dead Bugs", "Plank Hold"]
+            },
+            "Plank": {
+                beginner: ["Knee Plank", "Incline Plank", "Wall Plank"],
+                noEquipment: ["Same - bodyweight only"],
+                injury: ["Dead Bug", "Bird Dog", "Pelvic Tilts"]
+            }
+        };
+        
+        function showSubstitutions(exercise) {
+            const subs = exerciseSubstitutions[exercise];
+            if (!subs) {
+                alert('No substitutions available for this exercise.');
+                return;
+            }
+            
+            let message = `Substitutions for ${exercise}:\n\n`;
+            message += `BEGINNER OPTIONS:\n${subs.beginner.join(', ')}\n\n`;
+            message += `NO EQUIPMENT:\n${subs.noEquipment.join(', ')}\n\n`;
+            message += `INJURY/MODIFICATION:\n${subs.injury.join(', ')}`;
+            
+            alert(message);
+        }
+        
+        function getSessionTimes() {
+            const saved = localStorage.getItem('sessionTimes');
+            return saved ? JSON.parse(saved) : {...defaultSessionTimes};
+        }
+        
+        function getMealTimes() {
+            const saved = localStorage.getItem('mealTimes');
+            return saved ? JSON.parse(saved) : {...defaultMealTimes};
+        }
+        
+        function saveSessionTime(sessionNum) {
+            const times = getSessionTimes();
+            const inputId = `time-session${sessionNum}`;
+            const newTime = document.getElementById(inputId).value;
+            
+            times[`session${sessionNum}`] = newTime;
+            localStorage.setItem('sessionTimes', JSON.stringify(times));
+            
+            // Update all workout displays
+            updateWorkoutWeek();
+            
+            // Show confirmation
+            alert(`Session ${sessionNum} time updated to ${formatTimeDisplay(newTime)}`);
+        }
+        
+        function saveMealTime(mealNum) {
+            const times = getMealTimes();
+            const inputId = `time-meal${mealNum}`;
+            const newTime = document.getElementById(inputId).value;
+            
+            times[`meal${mealNum}`] = newTime;
+            localStorage.setItem('mealTimes', JSON.stringify(times));
+            
+            // Update nutrition tab displays
+            updateNutritionTimes();
+            
+            alert(`Meal time updated to ${formatTimeDisplay(newTime)}`);
+        }
+        
+        function resetAllTimes() {
+            if (confirm('Reset all workout and meal times to defaults?')) {
+                localStorage.setItem('sessionTimes', JSON.stringify(defaultSessionTimes));
+                localStorage.setItem('mealTimes', JSON.stringify(defaultMealTimes));
+                
+                // Update input fields
+                document.getElementById('time-session1').value = '09:00';
+                document.getElementById('time-session2').value = '11:30';
+                document.getElementById('time-session3').value = '14:00';
+                document.getElementById('time-session4').value = '16:30';
+                document.getElementById('time-meal1').value = '07:30';
+                document.getElementById('time-meal2').value = '10:30';
+                document.getElementById('time-meal3').value = '12:30';
+                document.getElementById('time-meal4').value = '15:00';
+                document.getElementById('time-meal5').value = '18:00';
+                
+                // Update displays
+                updateWorkoutWeek();
+                updateNutritionTimes();
+                
+                alert('All times reset to defaults!');
+            }
+        }
+        
+        function formatTimeDisplay(time24) {
+            const [hours, minutes] = time24.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+        
+        function updateNutritionTimes() {
+            const times = getMealTimes();
+            const mealElements = document.querySelectorAll('.meal-time');
+            const mealNames = ['Breakfast', 'Pre-Workout Snack', 'Post-Workout Lunch', 'Afternoon Snack', 'Dinner'];
+            
+            mealElements.forEach((element, index) => {
+                const mealKey = `meal${index + 1}`;
+                if (times[mealKey]) {
+                    element.innerHTML = `⏰ ${formatTimeDisplay(times[mealKey])} - ${mealNames[index]}`;
+                }
+            });
+        }
+        
+        function loadSavedTimes() {
+            const sessionTimes = getSessionTimes();
+            const mealTimes = getMealTimes();
+            
+            // Load session times into settings inputs
+            Object.keys(sessionTimes).forEach(key => {
+                const sessionNum = key.replace('session', '');
+                const input = document.getElementById(`time-session${sessionNum}`);
+                if (input) {
+                    input.value = sessionTimes[key];
+                }
+            });
+            
+            // Load meal times into settings inputs
+            Object.keys(mealTimes).forEach(key => {
+                const mealNum = key.replace('meal', '');
+                const input = document.getElementById(`time-meal${mealNum}`);
+                if (input) {
+                    input.value = mealTimes[key];
+                }
+            });
+        }
+        
+        // Workout progression data for all phases
+        const workoutPhases = {
+            "1-4": {
+                description: "Foundation Phase: Focus on learning proper form, building work capacity, and establishing consistent habits.",
+                monday: {
+                    session1: {
+                        warmup: ["Arm circles & leg swings - 2 min", "10 Air squats", "10 Kettlebell deadlifts (light)", "30 sec plank", "Repeat 2x"],
+                        strength: ["Goblet Squats: 5 sets of 8 reps (20-30 lbs)", "Rest 90 sec", "Kettlebell Deadlifts: 4 sets of 10 reps", "Rest 90 sec"],
+                        notes: "Focus on form. Keep core tight."
+                    },
+                    session2: {
+                        wod: "Leg Burner - AMRAP 12 Minutes",
+                        exercises: ["15 Air Squats", "10 KB Swings (20-30 lbs)", "10 Walking Lunges", "20 sec Plank"],
+                        time: 720
+                    },
+                    session3: {
+                        core: ["30 sec Plank x3", "15 Dead Bugs x3", "20 Russian Twists x3", "10 Bird Dogs x3", "Rest 60 sec between rounds"],
+                        mobility: ["Hip flexor stretch - 60s each", "Hamstring stretch - 60s each", "Child's pose - 90s"]
+                    },
+                    session4: {
+                        pullup: ["Dead Hangs: 5 x max hold (goal 15+ sec)", "Rest 90 sec", "Scapular Pulls: 4 x 5 reps", "Negative Pull-Ups: 4 x 3 reps (5 sec)", "KB Carries: 3 x 60 sec walk"],
+                        notes: "This is your path to pull-ups! Be patient."
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Arm circles - 1 min each direction", "10 Inchworms", "10 Push-ups (knees OK)", "10 KB shoulder press (light)", "Repeat 2x"],
+                        strength: ["Push-Up Progression: 8 sets of 3-5 reps", "Use elevation if needed", "Rest 60 sec", "KB Floor Press: 4 sets of 10 reps", "Rest 90 sec"],
+                        notes: "Quality over quantity on push-ups"
+                    },
+                    session2: {
+                        wod: "Upper Body Blitz - 4 Rounds For Time",
+                        exercises: ["15 KB Swings", "10 Push-Ups (scaled)", "15 KB Overhead Press", "20 Mountain Climbers"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["30 sec Side Plank each x3", "15 Single-Arm KB Rows each x3", "20 Bicycle Crunches x3", "10 KB Windmills x3", "Rest 60 sec between"],
+                        mobility: ["Doorway chest stretch - 60s each", "Thread the needle - 45s each", "Shoulder circles"]
+                    },
+                    session4: {
+                        pullup: ["Active Dead Hangs: 5 x 15-20 sec", "Scapular Retractions: 4 x 10", "Inverted Rows: 4 x 6-8", "Face Pulls: 3 x 15", "Delt Raises: 3 x 12"],
+                        notes: "Building that pull-up strength!"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Jumping jacks - 30 reps", "High knees - 30 sec", "Butt kicks - 30 sec", "Arm circles - 30 sec each", "World's greatest stretch - 5 each", "10 squats + 5 push-ups", "Repeat 2x"],
+                        skill: ["KB Snatch Practice: 10 min EMOM", "5 reps each arm (light)", "Box Step-Ups: 3 x 10 each leg"]
+                    },
+                    session2: {
+                        wod: "Midweek Madness - 20 Min AMRAP",
+                        exercises: ["10 KB Swings", "10 Air Squats", "10 Push-Ups", "10 Walking Lunges", "10 Sit-Ups", "100m Walk/Jog"],
+                        time: 1200
+                    },
+                    session3: {
+                        recovery: ["10 min easy walk", "5 min foam rolling", "5 min yoga flow"]
+                    },
+                    session4: {
+                        intervals: "8 Rounds: 30 sec KB Swings / 30 sec Rest",
+                        notes: "Fast pace on swings, full rest between"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Leg swings - 15 each direction", "Hip circles - 10 each", "10 Goblet squats (light)", "10 Good mornings", "30 sec wall sit", "Repeat 2x"],
+                        strength: ["KB Front Squats: 5 x 6 reps", "Rest 2 min", "Single-Leg RDLs: 4 x 8 each", "Rest 90 sec", "Box Step-Ups: 3 x 12 each (weighted)"],
+                        notes: "Focus on balance and control"
+                    },
+                    session2: {
+                        wod: "Leg Day Special - 5 Rounds For Time",
+                        exercises: ["20 Air Squats", "15 KB Swings", "12 Walking Lunges", "10 Burpees (step back)"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["45 sec Plank x4", "20 Mountain Climbers x4", "15 V-Ups x4", "30 sec Hollow Hold x4", "Rest 60 sec between"],
+                        mobility: ["Pigeon pose - 90s each", "Quad stretch - 60s each", "Calf stretch - 45s each"]
+                    },
+                    session4: {
+                        pullup: ["Dead Hangs: 5 x 20-30 sec", "Scapular Pull-Ups: 5 x 6", "Negative Pull-Ups: 5 x 2-3 (8 sec)", "Band-Assisted: 3 x 5 (if available)", "Lat Holds: 4 x 15 sec"],
+                        notes: "Getting stronger every week!"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["Max Push-Ups", "Max Squats (1 min)", "Max Plank Hold", "Max Dead Hang"],
+                        notes: "Record these numbers!"
+                    },
+                    session2: {
+                        wod: "End of Week Crusher - 15 Min AMRAP",
+                        exercises: ["15 KB Swings", "12 Push-Ups", "15 Air Squats", "10 Burpees", "20 Mountain Climbers"],
+                        time: 900
+                    },
+                    session3: {
+                        recovery: ["10 min yoga flow", "5 min foam rolling", "5 min meditation"]
+                    },
+                    session4: {
+                        challenge: ["Option A: 100 KB Swings for time", "Option B: 10 min EMOM - 10 squats + 5 push-ups", "Option C: Max pull-up attempts in 10 min", "Option D: 2 mile walk"]
+                    }
+                }
+            },
+            "5-8": {
+                description: "Build Volume Phase: Increase workout density, reduce rest times, add weight to all movements. Your body is adapting!",
+                monday: {
+                    session1: {
+                        warmup: ["Dynamic warm-up - 3 min", "15 Air squats", "15 KB deadlifts", "45 sec plank", "Repeat 2x"],
+                        strength: ["Goblet Squats: 5 sets of 10 reps (30-40 lbs)", "Rest 75 sec", "KB Deadlifts: 5 sets of 12 reps", "Rest 75 sec", "Bulgarian Split Squats: 3 x 10 each"],
+                        notes: "Increase weight, decrease rest time"
+                    },
+                    session2: {
+                        wod: "Leg Destroyer - AMRAP 15 Minutes",
+                        exercises: ["20 Air Squats", "15 KB Swings (heavier)", "15 Walking Lunges", "30 sec Plank", "10 Box Jumps (or step-ups)"],
+                        time: 900
+                    },
+                    session3: {
+                        core: ["45 sec Plank x4", "20 Dead Bugs x4", "25 Russian Twists x4", "12 Bird Dogs x4", "Rest 45 sec between"],
+                        mobility: ["Hip flexor stretch - 90s each", "Hamstring stretch - 90s each", "Deep squat hold - 2 min"]
+                    },
+                    session4: {
+                        pullup: ["Dead Hangs: 6 x 25-30 sec", "Scapular Pulls: 5 x 8 reps", "Negative Pull-Ups: 5 x 4 reps (6 sec)", "Chin-Up Negatives: 4 x 3", "KB Carries: 4 x 90 sec (heavier)"],
+                        notes: "You should be close to your first pull-up!"
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Arm circles - 2 min total", "15 Inchworms", "15 Push-ups", "15 KB shoulder press", "Repeat 2x"],
+                        strength: ["Push-Up Progression: 10 sets of 5-8 reps", "Rest 45 sec", "KB Floor Press: 5 sets of 12 reps", "Rest 75 sec", "KB Rows: 4 x 12 each arm"],
+                        notes: "Push-ups should be from toes now"
+                    },
+                    session2: {
+                        wod: "Upper Power - 5 Rounds For Time",
+                        exercises: ["20 KB Swings", "15 Push-Ups", "20 KB OH Press (alternating)", "25 Mountain Climbers", "10 Burpees"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["40 sec Side Plank each x4", "20 Single-Arm KB Rows each x4", "25 Bicycle Crunches x4", "12 KB Windmills each x4"],
+                        mobility: ["Chest stretch - 90s each", "Thoracic rotation - 60s", "Shoulder dislocates x20"]
+                    },
+                    session4: {
+                        pullup: ["Dead Hangs: 6 x 20-25 sec", "Scapular Retractions: 5 x 12", "Inverted Rows: 5 x 10", "Face Pulls: 4 x 20", "Attempt 1-2 Pull-Ups (assisted OK)"],
+                        notes: "Start attempting real pull-ups!"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Full body dynamic - 5 min", "Practice all movements", "Build to workout intensity"],
+                        skill: ["KB Snatch: 12 min EMOM", "6 reps each arm (moderate weight)", "Box Step-Ups: 4 x 12 each (weighted)"]
+                    },
+                    session2: {
+                        wod: "Wednesday Warrior - 25 Min AMRAP",
+                        exercises: ["15 KB Swings", "15 Air Squats", "12 Push-Ups", "12 Walking Lunges", "15 Sit-Ups", "150m Walk/Jog"],
+                        time: 1500
+                    },
+                    session3: {
+                        recovery: ["15 min easy walk/bike", "5 min foam rolling", "5 min yoga flow"]
+                    },
+                    session4: {
+                        intervals: "10 Rounds: 40 sec KB Swings / 20 sec Rest",
+                        notes: "Maintain fast pace, breathe through it"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Lower body dynamic - 5 min", "Build up movement quality"],
+                        strength: ["KB Front Squats: 6 x 8 reps (heavier)", "Rest 90 sec", "Single-Leg RDLs: 5 x 10 each", "Rest 75 sec", "Weighted Step-Ups: 4 x 15 each", "KB Lunges: 3 x 12 each"],
+                        notes: "Volume is increasing significantly"
+                    },
+                    session2: {
+                        wod: "Leg Blaster - 6 Rounds For Time",
+                        exercises: ["25 Air Squats", "20 KB Swings", "15 Walking Lunges", "12 Burpees"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["60 sec Plank x4", "25 Mountain Climbers x4", "20 V-Ups x4", "40 sec Hollow Hold x4"],
+                        mobility: ["Full lower body stretch - 15 min"]
+                    },
+                    session4: {
+                        pullup: ["Dead Hangs: 6 x 30+ sec", "Scapular Pull-Ups: 6 x 8", "Negative Pull-Ups: 6 x 3-4 (slow)", "Pull-Up Attempts: 5 sets of 1-3 reps", "Lat Engagement: 5 x 20 sec"],
+                        notes: "You're doing pull-ups now (or very close)!"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["Max Push-Ups (should be 15+)", "Max Squats in 1 min (60+)", "Max Plank (90+ sec)", "Max Dead Hang (45+ sec)", "Pull-Up Attempts"],
+                        notes: "Compare to week 4. See your progress!"
+                    },
+                    session2: {
+                        wod: "Final Push - 20 Min AMRAP",
+                        exercises: ["20 KB Swings", "15 Push-Ups", "20 Air Squats", "12 Burpees", "25 Mountain Climbers", "10 Box Step-Ups"],
+                        time: 1200
+                    },
+                    session3: {
+                        recovery: ["15 min yoga", "5 min breathing", "Celebrate your progress!"]
+                    },
+                    session4: {
+                        challenge: ["Option A: 150 KB Swings for time", "Option B: Max rounds in 15 min of any previous WOD", "Option C: Pull-up practice - 20 min", "Option D: 3 mile walk"]
+                    }
+                }
+            },
+            "9-12": {
+                description: "Strength Focus Phase: Master pull-ups, increase kettlebell weight significantly. You're an athlete now!",
+                monday: {
+                    session1: {
+                        warmup: ["Full warm-up - 5 min", "Movement prep for heavy lifts"],
+                        strength: ["Goblet Squats: 5 x 8 (40-50 lbs)", "Rest 2 min", "Heavy KB Deadlifts: 5 x 8", "Bulgarian Split Squats: 4 x 12 each", "Pistol Squat Practice: 3 x 5 each"],
+                        notes: "Go HEAVY. This is strength building."
+                    },
+                    session2: {
+                        wod: "Heavy Metal - 12 Min AMRAP",
+                        exercises: ["15 Heavy KB Swings", "12 Pull-Ups (scaled if needed)", "20 Air Squats", "15 Push-Ups", "10 Burpee Box Jumps"],
+                        time: 720
+                    },
+                    session3: {
+                        core: ["60 sec Plank x4", "25 Dead Bugs x4", "30 Weighted Russian Twists x4", "15 Bird Dogs x4", "Turkish Get-Ups: 3 x 3 each"],
+                        mobility: ["Deep stretching - 15 min"]
+                    },
+                    session4: {
+                        pullup: ["Strict Pull-Ups: 8 sets of 3-5 reps", "Rest 90 sec", "Chin-Ups: 5 x 5", "Wide Grip Dead Hangs: 5 x 30 sec", "Heavy KB Rows: 4 x 10 each"],
+                        notes: "You're doing multiple pull-ups now!"
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Upper body dynamic - 5 min"],
+                        strength: ["Deficit Push-Ups: 8 x 8-10", "Heavy KB Floor Press: 5 x 8", "KB Overhead Press: 5 x 8 each", "KB Rows: 5 x 12 each", "Dips: 4 x 8-12"],
+                        notes: "Build serious upper body strength"
+                    },
+                    session2: {
+                        wod: "Pull-Up Party - 20 Min AMRAP",
+                        exercises: ["5 Pull-Ups", "10 Push-Ups", "15 KB Swings", "20 Air Squats", "25 Mountain Climbers"],
+                        time: 1200
+                    },
+                    session3: {
+                        core: ["Complex core circuit - 4 rounds", "Advanced variations"],
+                        mobility: ["Upper body focus - 15 min"]
+                    },
+                    session4: {
+                        pullup: ["Pull-Up Volume: 50 total reps (any sets)", "Weighted Dead Hangs: 5 x 30 sec", "Muscle-Up Progressions", "Lat Pulldowns (if available)"],
+                        notes: "High volume pull-up work"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Full body - 5 min"],
+                        skill: ["Heavy KB Snatches: 15 min EMOM", "Complex movements practice"]
+                    },
+                    session2: {
+                        wod: "Midpoint Massacre - 30 Min AMRAP",
+                        exercises: ["20 KB Swings", "15 Pull-Ups", "20 Air Squats", "15 Push-Ups", "15 Lunges", "15 Sit-Ups", "200m Run/Walk"],
+                        time: 1800
+                    },
+                    session3: {
+                        recovery: ["20 min active recovery"]
+                    },
+                    session4: {
+                        intervals: "12 Rounds: 45 sec Work / 15 sec Rest (KB Swings)",
+                        notes: "Mental toughness training"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Lower body prep - 5 min"],
+                        strength: ["Heavy Front Squats: 6 x 6", "Heavy Single-Leg RDLs: 5 x 8 each", "Pistol Squats: 5 x 5 each", "Heavy Lunges: 4 x 10 each"],
+                        notes: "Maximum lower body strength"
+                    },
+                    session2: {
+                        wod: "Leg Legend - For Time",
+                        exercises: ["50-40-30-20-10: Air Squats", "40-30-20-10-5: KB Swings", "30-20-10-5-3: Burpees"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["Advanced core work - 20 min"],
+                        mobility: ["Full body - 15 min"]
+                    },
+                    session4: {
+                        pullup: ["Pull-Up Strength: 10 x 5", "Weighted Pull-Ups: 5 x 3 (if able)", "Pull-Up Holds: 5 x 20 sec", "Grip endurance work"],
+                        notes: "Building serious pull-up strength"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["Max Pull-Ups (goal: 10+)", "Max Push-Ups (goal: 30+)", "Max Heavy KB Swings in 2 min", "Max Plank (goal: 2+ min)", "Heavy KB Front Squat (max weight x5)"],
+                        notes: "Strength testing day!"
+                    },
+                    session2: {
+                        wod: "Triple Threat - 3 Rounds For Time",
+                        exercises: ["30 KB Swings", "20 Pull-Ups", "40 Air Squats", "20 Push-Ups", "30 Sit-Ups", "Rest 2 min between rounds"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["Deep recovery session - 30 min"]
+                    },
+                    session4: {
+                        challenge: ["Option A: Max pull-ups in 20 min", "Option B: 200 KB Swings for time", "Option C: Run a benchmark WOD", "Option D: 5 mile walk"]
+                    }
+                }
+            },
+            "13-16": {
+                description: "Pull-Up Mastery Phase: You're doing 10+ pull-ups now! Advanced movements, complex WODs, serious athlete training.",
+                monday: {
+                    session1: {
+                        warmup: ["Comprehensive warm-up - 8 min"],
+                        strength: ["Heavy Goblet Squats: 5 x 5 (45-50 lbs)", "Pistol Squats: 5 x 8 each", "Heavy KB Deadlifts: 5 x 5", "Shrimp Squats: 4 x 6 each", "KB Overhead Squats: 3 x 8"],
+                        notes: "Advanced single-leg work"
+                    },
+                    session2: {
+                        wod: "Mastery Monday - 15 Min AMRAP",
+                        exercises: ["10 Pull-Ups", "20 KB Swings (heavy)", "30 Air Squats", "10 Burpee Pull-Ups", "15 KB Snatches (alternating)"],
+                        time: 900
+                    },
+                    session3: {
+                        core: ["L-Sit Practice: 5 x max hold", "Windmills: 4 x 10 each", "Turkish Get-Ups: 4 x 4 each", "Dragon Flags: 3 x 5"],
+                        mobility: ["Deep tissue work - 15 min"]
+                    },
+                    session4: {
+                        pullup: ["Strict Pull-Ups: 10 x 5-8", "Weighted Pull-Ups: 5 x 5 (+10-20 lbs)", "Chest-to-Bar: 5 x 3", "Wide Grip: 5 x 5", "Pull-Up Ladders: 1-2-3-4-5"],
+                        notes: "Elite pull-up volume"
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Upper body activation - 8 min"],
+                        strength: ["Handstand Push-Up Progressions: 8 x 5", "Heavy KB Press: 5 x 5 each", "Deficit Push-Ups: 5 x 15", "Ring Dips: 5 x 8-10", "Heavy KB Rows: 5 x 10 each"],
+                        notes: "Advanced pressing strength"
+                    },
+                    session2: {
+                        wod: "The Gauntlet - For Time",
+                        exercises: ["21-15-9 reps of:", "Pull-Ups", "Push-Ups", "KB Swings", "Air Squats", "Burpees"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["Advanced gymnastics core work"],
+                        mobility: ["Shoulder & thoracic focus"]
+                    },
+                    session4: {
+                        pullup: ["Pull-Up Endurance: 100 total reps", "Butterfly Pull-Up Practice", "Bar Muscle-Up Progressions", "Kipping technique work"],
+                        notes: "Working toward muscle-ups"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Full mobility - 10 min"],
+                        skill: ["Olympic lift variations", "Complex KB movements", "Advanced technique work"]
+                    },
+                    session2: {
+                        wod: "Hero WOD 'Murph' (Scaled) - For Time",
+                        exercises: ["1 mile run/walk", "100 Pull-Ups", "200 Push-Ups", "300 Air Squats", "1 mile run/walk", "Partition reps as needed"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["30 min active recovery", "Ice bath if available"]
+                    },
+                    session4: {
+                        intervals: "15 Rounds: 30 sec Max Effort / 30 sec Rest",
+                        notes: "All-out sprint intervals"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Lower body activation"],
+                        strength: ["Heavy Front Squats: 5 x 3", "Pistol Squats: 6 x 10 each", "Heavy Step-Ups: 5 x 8 each", "Advanced single-leg work"],
+                        notes: "Peak lower body strength"
+                    },
+                    session2: {
+                        wod: "Leg Day Elite - AMRAP 20 Min",
+                        exercises: ["20 Pistol Squats (alternating)", "30 KB Swings", "40 Lunges", "50 Air Squats", "10 Burpee Box Jumps"],
+                        time: 1200
+                    },
+                    session3: {
+                        core: ["Advanced gymnastics core"],
+                        mobility: ["Full body restoration"]
+                    },
+                    session4: {
+                        pullup: ["Weighted Pull-Ups: 8 x 3-5 (heavy)", "Strict Chest-to-Bar: 5 x 5", "Max Pull-Up Test", "Grip strength finisher"],
+                        notes: "Heavy pull-up day"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["Max Strict Pull-Ups (goal: 15+)", "Max Weighted Pull-Up (1RM)", "Heavy KB Complex for time", "Advanced movement testing"],
+                        notes: "Show what you've built!"
+                    },
+                    session2: {
+                        wod: "Friday Night Fights - For Time",
+                        exercises: ["5 Rounds:", "15 Pull-Ups", "25 KB Swings", "35 Air Squats", "10 Burpees", "Rest 90 sec between rounds"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["Extended recovery - 40 min"]
+                    },
+                    session4: {
+                        challenge: ["Pick your hardest WOD and crush it!", "Or try a new benchmark WOD"]
+                    }
+                }
+            },
+            "17-20": {
+                description: "Advanced Training Phase: Elite fitness level. Complex movements, high volume, serious athlete programming.",
+                monday: {
+                    session1: {
+                        warmup: ["Dynamic warm-up - 10 min"],
+                        strength: ["Heavy KB Complex: 5 rounds", "Clean + Front Squat + Press: 5 reps each", "Pistol Squats: 5 x 10 each", "Advanced single-leg work", "Heavy carries and farmers walks"],
+                        notes: "Complex movement combinations"
+                    },
+                    session2: {
+                        wod: "Advanced Athlete - 20 Min AMRAP",
+                        exercises: ["15 Pull-Ups", "25 KB Swings (50 lbs)", "35 Air Squats", "15 Burpee Pull-Ups", "20 KB Snatches"],
+                        time: 1200
+                    },
+                    session3: {
+                        core: ["Advanced gymnastics", "L-sits, V-sits", "Advanced movements"],
+                        mobility: ["Competition-level flexibility"]
+                    },
+                    session4: {
+                        pullup: ["Weighted Pull-Ups: 8 x 5 (25+ lbs)", "Bar Muscle-Ups: 5 x 3", "High rep pull-up sets", "Advanced variations"],
+                        notes: "Working on muscle-ups seriously"
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Full preparation"],
+                        strength: ["Handstand Push-Ups: 8 x 8", "Heavy pressing complex", "Advanced push movements", "Ring work"],
+                        notes: "Elite upper body strength"
+                    },
+                    session2: {
+                        wod: "The Beast - For Time",
+                        exercises: ["100 Pull-Ups", "100 Push-Ups", "100 KB Swings", "100 Sit-Ups", "100 Air Squats", "Partition as needed"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["Competition-level core work"],
+                        mobility: ["Full body maintenance"]
+                    },
+                    session4: {
+                        pullup: ["Pull-Up Volume Day: 150+ reps", "All variations", "Endurance work"],
+                        notes: "Massive volume"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Comprehensive - 10 min"],
+                        skill: ["Olympic lift practice", "Advanced KB techniques", "Competition movements"]
+                    },
+                    session2: {
+                        wod: "Benchmark WOD - Your Choice",
+                        exercises: ["Pick a famous fitness benchmark", "Fran, Helen, Grace, etc."],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["Active recovery - 30 min"]
+                    },
+                    session4: {
+                        intervals: "Advanced interval training",
+                        notes: "Peak conditioning"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Lower body prep"],
+                        strength: ["Heavy complex movements", "Advanced squatting", "Peak strength work"],
+                        notes: "Maximum effort day"
+                    },
+                    session2: {
+                        wod: "Thursday Thunder - AMRAP 25 Min",
+                        exercises: ["20 Pistol Squats", "30 Pull-Ups", "40 KB Swings", "50 Push-Ups", "60 Air Squats"],
+                        time: 1500
+                    },
+                    session3: {
+                        core: ["Elite core training"],
+                        mobility: ["Recovery focus"]
+                    },
+                    session4: {
+                        pullup: ["Max effort weighted pull-ups", "Muscle-up practice", "Advanced bar work"],
+                        notes: "Elite gymnastics"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["Max Strict Pull-Ups (20+)", "Max Muscle-Ups", "Heavy KB max lifts", "Peak performance testing"],
+                        notes: "Testing your elite fitness"
+                    },
+                    session2: {
+                        wod: "Competition Simulation",
+                        exercises: ["Full competition-style WOD"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["Full recovery protocol"]
+                    },
+                    session4: {
+                        challenge: ["Competition prep work"]
+                    }
+                }
+            },
+            "21-25": {
+                description: "Peak Performance Phase: You're a functional fitness athlete! Competition-ready, elite fitness, maintaining and peaking strength.",
+                monday: {
+                    session1: {
+                        warmup: ["Competition warm-up protocol"],
+                        strength: ["Peak strength work", "Heavy singles and doubles", "Competition lift practice", "Maximum effort attempts"],
+                        notes: "Testing your peaks"
+                    },
+                    session2: {
+                        wod: "Peak Week - 15 Min AMRAP",
+                        exercises: ["20 Pull-Ups (strict)", "30 KB Swings (heavy)", "40 Air Squats", "10 Muscle-Ups (scaled to burpee pull-ups)", "20 Pistol Squats"],
+                        time: 900
+                    },
+                    session3: {
+                        core: ["Maintenance work", "Competition prep"],
+                        mobility: ["Peak performance prep"]
+                    },
+                    session4: {
+                        pullup: ["Pull-Up Mastery Display", "All variations", "Show your progress", "Volume or max effort - your choice"],
+                        notes: "You're a pull-up master now!"
+                    }
+                },
+                tuesday: {
+                    session1: {
+                        warmup: ["Full protocol"],
+                        strength: ["Competition pressing", "Peak upper body", "Maximum performance"],
+                        notes: "Elite level training"
+                    },
+                    session2: {
+                        wod: "Final Form - Your Choice",
+                        exercises: ["Pick your favorite WOD", "Crush a benchmark", "Show what you've built"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["Elite core work"],
+                        mobility: ["Full maintenance"]
+                    },
+                    session4: {
+                        pullup: ["Pull-up perfection work", "Dialing in technique", "Volume or strength focus"],
+                        notes: "Mastery maintenance"
+                    }
+                },
+                wednesday: {
+                    session1: {
+                        warmup: ["Full mobility and prep"],
+                        skill: ["Your choice of skills to practice", "Enjoy the movements you've mastered"]
+                    },
+                    session2: {
+                        wod: "Celebration WOD",
+                        exercises: ["Design your own!", "Include all your favorite movements", "Show off everything you can do now"],
+                        time: 1200
+                    },
+                    session3: {
+                        recovery: ["Full recovery day"]
+                    },
+                    session4: {
+                        intervals: "Fun interval work",
+                        notes: "Enjoy the fitness you've built"
+                    }
+                },
+                thursday: {
+                    session1: {
+                        warmup: ["Your routine"],
+                        strength: ["Peak testing", "Show your maximum lifts", "Record your progress"],
+                        notes: "This is what 25 weeks built!"
+                    },
+                    session2: {
+                        wod: "Grand Finale - For Time",
+                        exercises: ["Create your ultimate challenge", "Combine everything you've learned"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        core: ["Advanced work"],
+                        mobility: ["Full body care"]
+                    },
+                    session4: {
+                        pullup: ["Max Pull-Ups", "Weighted max", "Show your transformation"],
+                        notes: "From zero to hero!"
+                    }
+                },
+                friday: {
+                    session1: {
+                        testing: ["FINAL TESTING DAY", "Max everything", "Record all numbers", "Compare to Week 1", "CELEBRATE YOUR TRANSFORMATION!"],
+                        notes: "You did it! 50 pounds lost, pull-up master!"
+                    },
+                    session2: {
+                        wod: "Victory Lap",
+                        exercises: ["Your favorite WOD ever", "Enjoy every rep", "You earned this"],
+                        time: 0,
+                        type: "fortime"
+                    },
+                    session3: {
+                        recovery: ["Celebration and reflection", "Think about your journey", "You're an athlete now!"]
+                    },
+                    session4: {
+                        challenge: ["Plan your next 25 weeks!", "Set new goals", "Keep getting better"]
+                    }
+                }
+            }
+        };
+        
+        function updateWorkoutWeek() {
+            const week = document.getElementById('week-selector').value;
+            const phase = workoutPhases[week];
+            document.getElementById('week-description').textContent = phase.description;
+            
+            // Update all days with new content
+            updateDayContent('monday', phase.monday);
+            updateDayContent('tuesday', phase.tuesday);
+            updateDayContent('wednesday', phase.wednesday);
+            updateDayContent('thursday', phase.thursday);
+            updateDayContent('friday', phase.friday);
+        }
+        
+        function updateDayContent(day, data) {
+            const dayElement = document.getElementById(day);
+            const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+            const sessionTimes = getSessionTimes();
+            const week = document.getElementById('week-selector').value;
+            
+            const sessionLabels = [
+                'Strength & Skill',
+                'Metcon',
+                'Core & Mobility',
+                'Accessory Work'
+            ];
+            
+            let html = `<h3 style="color: #2c3e50; margin-bottom: 20px;">${dayName}</h3>`;
+            
+            // Session 1
+            const session1Complete = isWorkoutCompleted(week, day, 1);
+            html += `
+                <div class="workout-session">
+                    <div class="session-header">
+                        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                            <input type="checkbox" id="check-${day}-1" ${session1Complete ? 'checked' : ''} 
+                                   onchange="saveWorkoutCompletion('${week}', '${day}', 1, this.checked)"
+                                   style="width: 24px; height: 24px; cursor: pointer;">
+                            <span class="session-time">⏰ ${formatTimeDisplay(sessionTimes.session1)} - ${sessionLabels[0]}</span>
+                        </div>
+                        <button class="alarm-btn" onclick="setAlarm('${sessionTimes.session1}', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">`;
+            
+            if (data.session1.warmup) {
+                html += `<h4>Warm-Up</h4><ul class="exercise-list">`;
+                data.session1.warmup.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session1.strength) {
+                html += `<h4>Strength Work</h4><ul class="exercise-list">`;
+                data.session1.strength.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session1.skill) {
+                html += `<h4>Skill Practice</h4><ul class="exercise-list">`;
+                data.session1.skill.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session1.testing) {
+                html += `<h4>Weekly Testing</h4><ul class="exercise-list">`;
+                data.session1.testing.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session1.notes) {
+                html += `<p style="margin-top: 10px;"><em>💡 ${data.session1.notes}</em></p>`;
+            }
+            
+            html += `</div></div>`;
+            
+            // Session 2
+            const session2Complete = isWorkoutCompleted(week, day, 2);
+            html += `
+                <div class="workout-session">
+                    <div class="session-header">
+                        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                            <input type="checkbox" id="check-${day}-2" ${session2Complete ? 'checked' : ''} 
+                                   onchange="saveWorkoutCompletion('${week}', '${day}', 2, this.checked)"
+                                   style="width: 24px; height: 24px; cursor: pointer;">
+                            <span class="session-time">⏰ ${formatTimeDisplay(sessionTimes.session2)} - ${sessionLabels[1]}</span>
+                        </div>
+                        <button class="alarm-btn" onclick="setAlarm('${sessionTimes.session2}', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">`;
+            
+            if (data.session2.wod) {
+                html += `<h4>WOD: ${data.session2.wod}</h4>`;
+            }
+            
+            if (data.session2.exercises) {
+                html += `<ul class="exercise-list">`;
+                data.session2.exercises.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session2.time !== undefined) {
+                const timerId = `timer-${day}-session2`;
+                const displayTime = data.session2.type === 'fortime' ? '0:00' : formatTime(data.session2.time);
+                html += `
+                    <div class="timer-section">
+                        <div class="timer-display" id="${timerId}">${displayTime}</div>
+                        <div class="timer-controls">`;
+                
+                if (data.session2.type === 'fortime') {
+                    html += `
+                        <button class="timer-btn start-btn" onclick="startCountUp('${day}-session2')">Start</button>
+                        <button class="timer-btn pause-btn" onclick="pauseTimer('${day}-session2')">Pause</button>
+                        <button class="timer-btn reset-btn" onclick="resetTimer('${day}-session2', 0)">Reset</button>`;
+                } else {
+                    html += `
+                        <button class="timer-btn start-btn" onclick="startTimer('${day}-session2', ${data.session2.time})">Start</button>
+                        <button class="timer-btn pause-btn" onclick="pauseTimer('${day}-session2')">Pause</button>
+                        <button class="timer-btn reset-btn" onclick="resetTimer('${day}-session2', ${data.session2.time})">Reset</button>`;
+                }
+                
+                html += `</div></div>`;
+            }
+            
+            html += `</div></div>`;
+            
+            // Session 3
+            const session3Complete = isWorkoutCompleted(week, day, 3);
+            html += `
+                <div class="workout-session">
+                    <div class="session-header">
+                        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                            <input type="checkbox" id="check-${day}-3" ${session3Complete ? 'checked' : ''} 
+                                   onchange="saveWorkoutCompletion('${week}', '${day}', 3, this.checked)"
+                                   style="width: 24px; height: 24px; cursor: pointer;">
+                            <span class="session-time">⏰ ${formatTimeDisplay(sessionTimes.session3)} - ${sessionLabels[2]}</span>
+                        </div>
+                        <button class="alarm-btn" onclick="setAlarm('${sessionTimes.session3}', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">`;
+            
+            if (data.session3.core) {
+                html += `<h4>Core Circuit</h4><ul class="exercise-list">`;
+                data.session3.core.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session3.mobility) {
+                html += `<h4>Mobility</h4><ul class="exercise-list">`;
+                data.session3.mobility.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session3.recovery) {
+                html += `<h4>Recovery</h4><ul class="exercise-list">`;
+                data.session3.recovery.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            html += `</div></div>`;
+            
+            // Session 4
+            const session4Complete = isWorkoutCompleted(week, day, 4);
+            html += `
+                <div class="workout-session">
+                    <div class="session-header">
+                        <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                            <input type="checkbox" id="check-${day}-4" ${session4Complete ? 'checked' : ''} 
+                                   onchange="saveWorkoutCompletion('${week}', '${day}', 4, this.checked)"
+                                   style="width: 24px; height: 24px; cursor: pointer;">
+                            <span class="session-time">⏰ ${formatTimeDisplay(sessionTimes.session4)} - ${sessionLabels[3]}</span>
+                        </div>
+                        <button class="alarm-btn" onclick="setAlarm('${sessionTimes.session4}', this)">Set Alarm</button>
+                    </div>
+                    <div class="workout-details">`;
+            
+            if (data.session4.pullup) {
+                html += `<h4>Pull-Up Progression</h4><ul class="exercise-list">`;
+                data.session4.pullup.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session4.intervals) {
+                html += `<h4>${data.session4.intervals}</h4>`;
+            }
+            
+            if (data.session4.challenge) {
+                html += `<h4>Choose Your Challenge</h4><ul class="exercise-list">`;
+                data.session4.challenge.forEach(ex => html += `<li>${ex}</li>`);
+                html += `</ul>`;
+            }
+            
+            if (data.session4.notes) {
+                html += `<p style="margin-top: 10px;"><em>💡 ${data.session4.notes}</em></p>`;
+            }
+            
+            html += `</div></div>`;
+            
+            dayElement.innerHTML = html;
+            updateWeeklyProgress();
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        function generateShoppingList() {
+            const shoppingList = {
+                "Proteins": [
+                    "Eggs (2.5 dozen for week)",
+                    "Chicken breast (3 lbs)",
+                    "Salmon or lean ground turkey (2.5 lbs)",
+                    "Greek yogurt, plain non-fat (7 containers)"
+                ],
+                "Carbs": [
+                    "Oatmeal/rolled oats (1 large container)",
+                    "Brown rice (2 lbs)",
+                    "Sweet potatoes (7 medium)",
+                    "Whole wheat bread (1 loaf, optional)",
+                    "Quinoa (1 lb, optional)"
+                ],
+                "Fruits": [
+                    "Bananas (7)",
+                    "Apples (7)",
+                    "Mixed berries (2 bags, fresh or frozen)"
+                ],
+                "Vegetables": [
+                    "Broccoli (2 large heads)",
+                    "Bell peppers (5)",
+                    "Carrots (2 lbs)",
+                    "Spinach (2 bags or containers)",
+                    "Cucumbers (3)",
+                    "Tomatoes (4-5)",
+                    "Mixed vegetables (frozen, 2 bags)"
+                ],
+                "Healthy Fats": [
+                    "Olive oil (1 bottle if needed)",
+                    "Natural peanut butter (1 jar)",
+                    "Almonds (1 bag)",
+                    "Avocados (3-4, optional)"
+                ],
+                "Dairy & Other": [
+                    "Coffee or green tea",
+                    "Honey (1 small jar)",
+                    "Balsamic vinaigrette (1 bottle)"
+                ],
+                "Pantry Staples": [
+                    "Salt, pepper, garlic powder",
+                    "Olive oil or cooking spray",
+                    "Multivitamin",
+                    "Fish oil supplements (optional)",
+                    "Protein powder (optional)"
+                ]
+            };
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                padding: 20px;
+                overflow-y: auto;
+            `;
+            
+            let listHTML = `
+                <div style="background: white; border-radius: 12px; padding: 30px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">🛒 Weekly Shopping List</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 30px;">Everything you need for the week's meal plan</p>
+            `;
+            
+            for (const [category, items] of Object.entries(shoppingList)) {
+                listHTML += `
+                    <div style="margin-bottom: 25px;">
+                        <h3 style="color: #2c3e50; border-bottom: 2px solid #667eea; padding-bottom: 8px; margin-bottom: 12px;">${category}</h3>
+                        <ul style="list-style: none; padding: 0;">
+                `;
+                
+                items.forEach(item => {
+                    listHTML += `
+                        <li style="padding: 8px 0; border-bottom: 1px solid #e9ecef; display: flex; align-items: center;">
+                            <input type="checkbox" style="margin-right: 12px; width: 20px; height: 20px; cursor: pointer;">
+                            <span>${item}</span>
+                        </li>
+                    `;
+                });
+                
+                listHTML += `</ul></div>`;
+            }
+            
+            listHTML += `
+                    <div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-radius: 8px;">
+                        <p style="font-size: 0.9em; color: #856404; margin: 0;">
+                            <strong>💡 Tip:</strong> Buy in bulk when possible. Most items last the full week. Adjust quantities based on your household size.
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+                        <button onclick="printShoppingList()" style="flex: 1; padding: 12px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; min-width: 120px;">
+                            🖨️ Print List
+                        </button>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="flex: 1; padding: 12px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; min-width: 120px;">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.innerHTML = listHTML;
+            document.body.appendChild(modal);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        function printShoppingList() {
+            window.print();
+        }
+        
+        function showVideoLibrary() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                padding: 20px;
+                overflow-y: auto;
+            `;
+            
+            let libraryHTML = `
+                <div style="background: white; border-radius: 12px; padding: 30px; max-width: 1200px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <h2 style="color: #667eea; margin-bottom: 10px; text-align: center;">🎥 Exercise Video Library</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 30px;">Click any exercise to watch tutorial and see form tips</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            `;
+            
+            for (const [exerciseName, exercise] of Object.entries(exerciseVideos)) {
+                libraryHTML += `
+                    <div onclick="showExerciseVideo('${exerciseName}')" 
+                         style="cursor: pointer; border: 2px solid #e9ecef; border-radius: 12px; padding: 15px; transition: all 0.3s; background: #f8f9fa;"
+                         onmouseover="this.style.borderColor='#667eea'; this.style.transform='translateY(-5px)'; this.style.boxShadow='0 5px 20px rgba(102,126,234,0.3)'"
+                         onmouseout="this.style.borderColor='#e9ecef'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        
+                        <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 12px; border-radius: 8px; overflow: hidden; background: #000;">
+                            <img src="https://img.youtube.com/vi/${exercise.video}/mqdefault.jpg" 
+                                 alt="${exerciseName}"
+                                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(220,53,69,0.9); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 0; height: 0; border-left: 20px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 5px;"></div>
+                            </div>
+                        </div>
+                        
+                        <h4 style="color: #2c3e50; margin-bottom: 8px; font-size: 1.1em;">${exerciseName}</h4>
+                        <p style="color: #666; font-size: 0.9em; margin: 0;">Click to watch tutorial & see form tips</p>
+                    </div>
+                `;
+            }
+            
+            libraryHTML += `
+                    </div>
+                    
+                    <div style="padding: 20px; background: #d1ecf1; border-radius: 8px; margin-bottom: 20px;">
+                        <h4 style="color: #17a2b8; margin-bottom: 10px;">💡 How to Use These Videos:</h4>
+                        <ul style="padding-left: 20px; color: #17a2b8; margin: 0;">
+                            <li>Watch BEFORE attempting the exercise for the first time</li>
+                            <li>Focus on form over speed or weight</li>
+                            <li>Pause and practice key positions</li>
+                            <li>Film yourself to compare with the tutorial</li>
+                            <li>Review anytime you feel your form slipping</li>
+                        </ul>
+                    </div>
+                    
+                    <button onclick="this.closest('[style*=fixed]').remove()" 
+                            style="width: 100%; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        Close Library
+                    </button>
+                </div>
+            `;
+            
+            modal.innerHTML = libraryHTML;
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        function showSubstitutionGuide() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                padding: 20px;
+                overflow-y: auto;
+            `;
+            
+            let guideHTML = `
+                <div style="background: white; border-radius: 12px; padding: 30px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <h2 style="color: #667eea; margin-bottom: 20px; text-align: center;">🔄 Exercise Substitution Guide</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 30px;">Can't do an exercise? Here are alternatives for every movement!</p>
+            `;
+            
+            for (const [exercise, subs] of Object.entries(exerciseSubstitutions)) {
+                guideHTML += `
+                    <div style="margin-bottom: 25px; border: 2px solid #e9ecef; border-radius: 8px; padding: 20px;">
+                        <h3 style="color: #667eea; margin-bottom: 15px;">${exercise}</h3>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #28a745; margin-bottom: 8px;">✅ Beginner Options:</h4>
+                            <ul style="padding-left: 20px; color: #666;">
+                                ${subs.beginner.map(s => `<li style="margin-bottom: 5px;">${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <h4 style="color: #17a2b8; margin-bottom: 8px;">🏋️ No Equipment:</h4>
+                            <ul style="padding-left: 20px; color: #666;">
+                                ${subs.noEquipment.map(s => `<li style="margin-bottom: 5px;">${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #ffc107; margin-bottom: 8px;">⚕️ Injury Modifications:</h4>
+                            <ul style="padding-left: 20px; color: #666;">
+                                ${subs.injury.map(s => `<li style="margin-bottom: 5px;">${s}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            guideHTML += `
+                    <div style="margin-top: 30px; padding: 20px; background: #d1ecf1; border-radius: 8px;">
+                        <h4 style="color: #17a2b8; margin-bottom: 10px;">💡 General Substitution Rules:</h4>
+                        <ul style="padding-left: 20px; color: #17a2b8;">
+                            <li>Always maintain the same movement pattern (push, pull, squat, hinge)</li>
+                            <li>Match the intensity level (easy substitutes for easy exercises)</li>
+                            <li>If in pain, STOP and choose a modification</li>
+                            <li>Consult a doctor for persistent issues</li>
+                            <li>Perfect form > Heavy weight or high reps</li>
+                        </ul>
+                    </div>
+                    
+                    <button onclick="this.closest('[style*=fixed]').remove()" 
+                            style="width: 100%; margin-top: 20px; padding: 14px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        Close Guide
+                    </button>
+                </div>
+            `;
+            
+            modal.innerHTML = guideHTML;
+            document.body.appendChild(modal);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+        
+        // Audio context for alarms
+        let audioContext;
+        let alarms = {};
+        let timers = {};
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        function playAlarm() {
+            initAudio();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+            
+            // Play 3 beeps
+            setTimeout(() => playBeep(), 600);
+            setTimeout(() => playBeep(), 1200);
+        }
+        
+        function playBeep() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+        
+        function setAlarm(time, button) {
+            initAudio();
+            const alarmKey = time + '-' + Date.now();
+            
+            if (button.classList.contains('active')) {
+                // Cancel alarm
+                if (alarms[alarmKey]) {
+                    clearTimeout(alarms[alarmKey]);
+                    delete alarms[alarmKey];
+                }
+                button.classList.remove('active');
+                button.textContent = 'Set Alarm';
+                return;
+            }
+            
+            // Set alarm
+            const [hours, minutes] = time.split(':').map(Number);
+            const now = new Date();
+            const alarmTime = new Date();
+            alarmTime.setHours(hours, minutes, 0, 0);
+            
+            if (alarmTime <= now) {
+                alarmTime.setDate(alarmTime.getDate() + 1);
+            }
+            
+            const timeUntilAlarm = alarmTime - now;
+            
+            alarms[alarmKey] = setTimeout(() => {
+                playAlarm();
+                alert(`Time for your ${time} workout!`);
+                button.classList.remove('active');
+                button.textContent = 'Set Alarm';
+                delete alarms[alarmKey];
+            }, timeUntilAlarm);
+            
+            button.classList.add('active');
+            button.textContent = 'Cancel Alarm';
+        }
+        
+        // Timer functions
+        function startTimer(id, seconds) {
+            if (timers[id]?.interval) {
+                return; // Already running
+            }
+            
+            if (!timers[id]) {
+                timers[id] = { remaining: seconds, interval: null };
+            }
+            
+            timers[id].interval = setInterval(() => {
+                timers[id].remaining--;
+                updateTimerDisplay(id);
+                
+                if (timers[id].remaining <= 0) {
+                    clearInterval(timers[id].interval);
+                    timers[id].interval = null;
+                    playAlarm();
+                    alert('Time\'s up!');
+                }
+            }, 1000);
+        }
+        
+        function startCountUp(id) {
+            if (timers[id]?.interval) {
+                return;
+            }
+            
+            if (!timers[id]) {
+                timers[id] = { remaining: 0, interval: null };
+            }
+            
+            timers[id].interval = setInterval(() => {
+                timers[id].remaining++;
+                updateTimerDisplay(id);
+            }, 1000);
+        }
+        
+        function pauseTimer(id) {
+            if (timers[id]?.interval) {
+                clearInterval(timers[id].interval);
+                timers[id].interval = null;
+            }
+        }
+        
+        function resetTimer(id, seconds) {
+            if (timers[id]?.interval) {
+                clearInterval(timers[id].interval);
+            }
+            timers[id] = { remaining: seconds, interval: null };
+            updateTimerDisplay(id);
+        }
+        
+        function updateTimerDisplay(id) {
+            const minutes = Math.floor(Math.abs(timers[id].remaining) / 60);
+            const seconds = Math.abs(timers[id].remaining) % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-' + id).textContent = display;
+        }
+        
+        function startIntervalTimer(id) {
+            let round = 1;
+            let isWork = true;
+            
+            if (timers[id]?.interval) {
+                clearInterval(timers[id].interval);
+            }
+            
+            timers[id] = { remaining: 30, interval: null };
+            
+            timers[id].interval = setInterval(() => {
+                timers[id].remaining--;
+                updateTimerDisplay(id);
+                
+                if (timers[id].remaining <= 0) {
+                    playBeep();
+                    isWork = !isWork;
+                    
+                    if (isWork) {
+                        round++;
+                        document.getElementById('round-' + id).textContent = round;
+                    }
+                    
+                    if (round > 8) {
+                        clearInterval(timers[id].interval);
+                        playAlarm();
+                        alert('Intervals complete!');
+                        return;
+                    }
+                    
+                    timers[id].remaining = 30;
+                }
+            }, 1000);
+        }
+        
+        // Tab navigation
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.nav-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Day navigation
+        function showDay(day) {
+            const days = document.querySelectorAll('.day-content');
+            const buttons = document.querySelectorAll('.day-btn');
+            
+            days.forEach(d => d.style.display = 'none');
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(day).style.display = 'block';
+            event.target.classList.add('active');
+        }
+        
+        // Progress tracking
+        let progressData = JSON.parse(localStorage.getItem('fitnessProgress')) || [];
+        let photoData = JSON.parse(localStorage.getItem('progressPhotos')) || [];
+        
+        function saveProgressPhotos() {
+            const date = document.getElementById('photo-date').value;
+            const frontFile = document.getElementById('photo-front').files[0];
+            const sideFile = document.getElementById('photo-side').files[0];
+            const backFile = document.getElementById('photo-back').files[0];
+            const notes = document.getElementById('photo-notes').value;
+            
+            if (!date) {
+                alert('Please enter a date for these photos!');
+                return;
+            }
+            
+            if (!frontFile && !sideFile && !backFile) {
+                alert('Please upload at least one photo!');
+                return;
+            }
+            
+            // Create photo entry
+            const photoEntry = {
+                date: date,
+                notes: notes,
+                photos: {}
+            };
+            
+            // Function to process each file
+            const processFiles = async () => {
+                const promises = [];
+                
+                if (frontFile) {
+                    promises.push(
+                        readFileAsDataURL(frontFile).then(data => {
+                            photoEntry.photos.front = data;
+                        })
+                    );
+                }
+                
+                if (sideFile) {
+                    promises.push(
+                        readFileAsDataURL(sideFile).then(data => {
+                            photoEntry.photos.side = data;
+                        })
+                    );
+                }
+                
+                if (backFile) {
+                    promises.push(
+                        readFileAsDataURL(backFile).then(data => {
+                            photoEntry.photos.back = data;
+                        })
+                    );
+                }
+                
+                await Promise.all(promises);
+                
+                // Save to storage
+                photoData.push(photoEntry);
+                photoData.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Check storage size (localStorage has ~5-10MB limit)
+                const dataSize = JSON.stringify(photoData).length;
+                const maxSize = 5000000; // 5MB conservative limit
+                
+                if (dataSize > maxSize) {
+                    alert('Storage limit reached! Consider deleting old photos to make room.');
+                    photoData.pop(); // Remove the photo we just added
+                    return;
+                }
+                
+                localStorage.setItem('progressPhotos', JSON.stringify(photoData));
+                
+                // Clear form
+                document.getElementById('photo-date').value = '';
+                document.getElementById('photo-front').value = '';
+                document.getElementById('photo-side').value = '';
+                document.getElementById('photo-back').value = '';
+                document.getElementById('photo-notes').value = '';
+                
+                // Update display
+                displayProgressPhotos();
+                
+                alert('Progress photos saved successfully!');
+            };
+            
+            processFiles().catch(err => {
+                alert('Error saving photos: ' + err.message);
+            });
+        }
+        
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                // Validate file size (max 2MB per photo)
+                if (file.size > 2000000) {
+                    reject(new Error('Photo too large! Please use photos under 2MB.'));
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(new Error('Failed to read file'));
+                reader.readAsDataURL(file);
+            });
+        }
+        
+        function displayProgressPhotos() {
+            const container = document.getElementById('photo-entries');
+            
+            if (photoData.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">No photos yet. Upload your first progress photos above!</p>';
+                return;
+            }
+            
+            let html = '';
+            
+            photoData.forEach((entry, index) => {
+                html += `
+                    <div style="border: 2px solid #e9ecef; border-radius: 8px; padding: 20px; margin-bottom: 20px; background: #f8f9fa;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                            <h4 style="color: #667eea; margin: 0;">📅 ${formatPhotoDate(entry.date)}</h4>
+                            <button onclick="deleteProgressPhoto(${index})" 
+                                    style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                        
+                        ${entry.notes ? `<p style="margin-bottom: 15px; color: #666; font-style: italic;">"${entry.notes}"</p>` : ''}
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                            ${entry.photos.front ? `
+                                <div>
+                                    <p style="font-weight: 600; margin-bottom: 8px; color: #667eea;">Front View</p>
+                                    <img src="${entry.photos.front}" alt="Front view" 
+                                         style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; cursor: pointer;"
+                                         onclick="openPhotoModal('${entry.photos.front}', 'Front View - ${formatPhotoDate(entry.date)}')">
+                                </div>
+                            ` : ''}
+                            
+                            ${entry.photos.side ? `
+                                <div>
+                                    <p style="font-weight: 600; margin-bottom: 8px; color: #667eea;">Side View</p>
+                                    <img src="${entry.photos.side}" alt="Side view" 
+                                         style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; cursor: pointer;"
+                                         onclick="openPhotoModal('${entry.photos.side}', 'Side View - ${formatPhotoDate(entry.date)}')">
+                                </div>
+                            ` : ''}
+                            
+                            ${entry.photos.back ? `
+                                <div>
+                                    <p style="font-weight: 600; margin-bottom: 8px; color: #667eea;">Back View</p>
+                                    <img src="${entry.photos.back}" alt="Back view" 
+                                         style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px; cursor: pointer;"
+                                         onclick="openPhotoModal('${entry.photos.back}', 'Back View - ${formatPhotoDate(entry.date)}')">
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function formatPhotoDate(dateString) {
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+        
+        function deleteProgressPhoto(index) {
+            if (confirm('Delete these progress photos? This cannot be undone.')) {
+                photoData.splice(index, 1);
+                localStorage.setItem('progressPhotos', JSON.stringify(photoData));
+                displayProgressPhotos();
+            }
+        }
+        
+        function openPhotoModal(src, title) {
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="text-align: center; max-width: 90%; max-height: 90%;">
+                    <h3 style="color: white; margin-bottom: 20px;">${title}</h3>
+                    <img src="${src}" style="max-width: 100%; max-height: 70vh; border-radius: 8px;">
+                    <br>
+                    <button onclick="this.parentElement.parentElement.remove()" 
+                            style="margin-top: 20px; padding: 12px 30px; background: white; color: #667eea; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 1em;">
+                        Close
+                    </button>
+                </div>
+            `;
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            document.body.appendChild(modal);
+        }
+        
+        function addProgress() {
+            const entry = {
+                date: document.getElementById('progress-date').value,
+                weight: document.getElementById('progress-weight').value,
+                pushups: document.getElementById('progress-pushups').value,
+                squats: document.getElementById('progress-squats').value,
+                plank: document.getElementById('progress-plank').value,
+                hang: document.getElementById('progress-hang').value
+            };
+            
+            if (!entry.date || !entry.weight) {
+                alert('Please enter at least the date and weight!');
+                return;
+            }
+            
+            progressData.push(entry);
+            progressData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            localStorage.setItem('fitnessProgress', JSON.stringify(progressData));
+            
+            displayProgress();
+            
+            // Clear inputs
+            document.getElementById('progress-date').value = '';
+            document.getElementById('progress-weight').value = '';
+            document.getElementById('progress-pushups').value = '';
+            document.getElementById('progress-squats').value = '';
+            document.getElementById('progress-plank').value = '';
+            document.getElementById('progress-hang').value = '';
+        }
+        
+        function displayProgress() {
+            const container = document.getElementById('progress-entries');
+            
+            if (progressData.length === 0) {
+                container.innerHTML = '<p style="color: #666; text-align: center;">No entries yet. Add your first check-in above!</p>';
+                return;
+            }
+            
+            let html = '<table style="width: 100%; border-collapse: collapse;">';
+            html += '<tr style="background: #667eea; color: white;"><th style="padding: 10px;">Date</th><th>Weight</th><th>Push-Ups</th><th>Squats</th><th>Plank</th><th>Hang</th><th>Actions</th></tr>';
+            
+            progressData.forEach((entry, index) => {
+                const weightChange = index < progressData.length - 1 ? 
+                    (entry.weight - progressData[index + 1].weight).toFixed(1) : '-';
+                const changeColor = weightChange < 0 ? '#28a745' : (weightChange > 0 ? '#dc3545' : '#666');
+                
+                html += `<tr style="border-bottom: 1px solid #e9ecef;">
+                    <td style="padding: 10px;">${entry.date}</td>
+                    <td>${entry.weight} lbs <span style="color: ${changeColor}; font-weight: bold;">(${weightChange})</span></td>
+                    <td>${entry.pushups || '-'}</td>
+                    <td>${entry.squats || '-'}</td>
+                    <td>${entry.plank || '-'}s</td>
+                    <td>${entry.hang || '-'}s</td>
+                    <td><button onclick="deleteProgress(${index})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Delete</button></td>
+                </tr>`;
+            });
+            
+            html += '</table>';
+            container.innerHTML = html;
+        }
+        
+        function deleteProgress(index) {
+            if (confirm('Delete this entry?')) {
+                progressData.splice(index, 1);
+                localStorage.setItem('fitnessProgress', JSON.stringify(progressData));
+                displayProgress();
+            }
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            displayProgress();
+            displayProgressPhotos();
+            loadSavedTimes();
+            updateNutritionTimes();
+            updateWeeklyProgress();
+        });
+    </script>
+</body>
+</html>
